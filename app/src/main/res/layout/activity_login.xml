@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/gray"
+    android:focusableInTouchMode="true"
+    tools:context=".feature.login.LoginActivity">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/login_img_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toTopOf="@+id/login_etx_username"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/login_txv_welcome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/raleway_light"
+        android:text="@string/login_welcome_message"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toBottomOf="@+id/login_img_logo" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/login_etx_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_round_etx"
+        android:fontFamily="@font/raleway_medium"
+        android:hint="@string/username"
+        android:inputType="text"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/login_guide_center"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/login_txv_error_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/raleway_regular"
+        android:text="Should Not be empty"
+        android:textColor="@color/deepRed"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/login_guide_center"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/login_etx_username"
+        app:layout_constraintTop_toBottomOf="@+id/login_etx_username"
+        tools:visibility="visible" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/login_etx_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_round_etx"
+        android:fontFamily="@font/raleway_medium"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toBottomOf="@+id/login_txv_error_username" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/login_txv_error_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/raleway_regular"
+        android:text="Should Not be empty"
+        android:textColor="@color/deepRed"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/login_etx_password"
+        app:layout_constraintTop_toBottomOf="@+id/login_etx_password"
+        tools:visibility="visible" />
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/login_btn_submit"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_round_button"
+        android:fontFamily="@font/raleway_light"
+        android:onClick="onSubmitClick"
+        android:text="@string/sign_in"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toBottomOf="@+id/login_txv_error_password"
+        app:layout_constraintWidth_percent=".5" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/login_txv_register"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/raleway_light"
+        android:linksClickable="true"
+        android:onClick="onNoAccountClick"
+        android:text="@string/create_account"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toBottomOf="@+id/login_btn_submit" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".9" />
+
+</android.support.constraint.ConstraintLayout>

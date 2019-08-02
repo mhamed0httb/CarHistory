@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context=".feature.register.BasicInfoFragment">
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/register_img_logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_user"
+        app:layout_constraintBottom_toTopOf="@+id/login_guide_1"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintWidth_percent=".2" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/register_txv_welcome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/raleway_light"
+        android:gravity="center"
+        android:text="Create a new account \n \n Enter your info"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toBottomOf="@+id/register_img_logo" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/register_etx_fname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_etx"
+        android:fontFamily="@font/raleway_medium"
+        android:hint="First name"
+        android:inputType="text"
+        android:padding="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toTopOf="@+id/login_guide_1" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/register_txv_error_fname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/raleway_regular"
+        android:text="Should Not be empty"
+        android:textColor="@color/deepRed"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/register_etx_fname"
+        app:layout_constraintTop_toBottomOf="@+id/register_etx_fname"
+        tools:visibility="visible" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/register_etx_lname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_etx"
+        android:fontFamily="@font/raleway_medium"
+        android:hint="Last name"
+        android:inputType="text"
+        android:padding="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toBottomOf="@+id/login_guide_2" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/register_txv_error_lname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/raleway_regular"
+        android:text="Should Not be empty"
+        android:textColor="@color/deepRed"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/register_etx_lname"
+        app:layout_constraintTop_toBottomOf="@+id/register_etx_lname"
+        tools:visibility="visible" />
+
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/register_etx_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_etx"
+        android:fontFamily="@font/raleway_medium"
+        android:hint="Username"
+        android:inputType="text"
+        android:padding="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toTopOf="@+id/login_guide_3" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/register_txv_error_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/raleway_regular"
+        android:text="Should Not be empty"
+        android:textColor="@color/deepRed"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/register_etx_username"
+        app:layout_constraintStart_toStartOf="@+id/register_etx_username"
+        app:layout_constraintTop_toBottomOf="@+id/register_etx_username"
+        tools:visibility="visible" />
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/register_btn_proceed"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_button"
+        android:drawableEnd="@drawable/ic_next"
+        android:fontFamily="@font/raleway_light"
+        android:paddingStart="0dp"
+        android:paddingEnd="10dp"
+        android:text="Proceed"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toTopOf="@+id/login_guide_4"
+        app:layout_constraintWidth_percent=".4" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/register_txv_have_account"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/raleway_light"
+        android:text="Already have an account? \nSign in now!"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toBottomOf="@+id/register_btn_proceed" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".9" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".3" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".45" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_guide_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".75" />
+
+</android.support.constraint.ConstraintLayout>
