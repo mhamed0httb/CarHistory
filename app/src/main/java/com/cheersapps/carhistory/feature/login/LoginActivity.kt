@@ -7,7 +7,7 @@ import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
-import com.cheersapps.carhistory.MainActivity
+import com.cheersapps.carhistory.feature.home.MainActivity
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.common.resource.ResourceState
 import com.cheersapps.carhistory.core.activity.BaseActivity
