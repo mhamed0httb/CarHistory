@@ -5,10 +5,15 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
     <string name="login_welcome_message">Welcome To Car History! \nCars need your care too</string>
     <string name="empty_field">Should not be empty</string>
     <string name="cancel">Cancel</string>
     <string name="no_match">Password is not the same</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="error_register">Error while creating your account, please try again</string>
+    <string name="success_register">Your account has been created, please log in.</string>
 
 
 </resources>
