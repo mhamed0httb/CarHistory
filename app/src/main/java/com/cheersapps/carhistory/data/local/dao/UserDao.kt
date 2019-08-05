@@ -2,6 +2,7 @@ package com.cheersapps.carhistory.data.local.dao
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
+import com.cheersapps.carhistory.data.entity.Credentials
 import com.cheersapps.carhistory.data.entity.User
 import io.reactivex.Single
 
@@ -31,4 +32,7 @@ interface UserDao {
 
     @Query("SELECT COUNT(id) FROM User")
     fun count(): Single<Int>
+
+    @Query("SELECT * FROM User WHERE credentials =:credentials")
+    fun login(credentials: Credentials): Single<User>
 }

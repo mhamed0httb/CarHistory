@@ -1,7 +1,7 @@
 package com.cheersapps.carhistory.feature.login
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -9,7 +9,9 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import com.cheersapps.carhistory.MainActivity
 import com.cheersapps.carhistory.R
+import com.cheersapps.carhistory.common.resource.ResourceState
 import com.cheersapps.carhistory.core.activity.BaseActivity
+import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
 import com.cheersapps.carhistory.feature.register.RegisterActivity
 import com.cheersapps.carhistory.utils.NavigationUtils
 import io.reactivex.Single
@@ -32,6 +34,27 @@ class LoginActivity : BaseActivity() {
         setContentView(R.layout.activity_login)
 
         //initFocusListener()
+        initObservers()
+    }
+
+    private fun initObservers() {
+        loginViewModel.observeLogin().observe(this, Observer { nullableResource ->
+            nullableResource?.let { resource ->
+                when (resource.status) {
+                    ResourceState.LOADING -> {
+                        showLoader()
+                    }
+                    ResourceState.ERROR -> {
+                        hideLoader()
+                        showMessage(this, getString(R.string.error), getString(R.string.invalid_credentials))
+                    }
+                    ResourceState.SUCCESS -> {
+                        hideLoader()
+                        NavigationUtils.navigateTo(context = this@LoginActivity, finish = true, activity = MainActivity::class.java)
+                    }
+                }
+            }
+        })
     }
 
     private fun initFocusListener() {
@@ -53,13 +76,10 @@ class LoginActivity : BaseActivity() {
 
     /** CLICK Events */
     fun onNoAccountClick(v: View) {
-        startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+        NavigationUtils.navigateTo(context = this@LoginActivity, activity = RegisterActivity::class.java)
     }
 
     fun onSubmitClick(v: View) {
-        //NavigationUtils.navigateTo(context = this@LoginActivity, finish = true, activity = MainActivity::class.java)
-
-
         val username = login_etx_username.text
         val password = login_etx_password.text
         var isErrors = Pair(first = false, second = false)
@@ -84,7 +104,8 @@ class LoginActivity : BaseActivity() {
         if (isErrors.first || isErrors.second) return
 
         // TODO: Check credentials first
-        NavigationUtils.navigateTo(context = this@LoginActivity, finish = true, activity = MainActivity::class.java)
+
+        loginViewModel.login(username.toString(), password.toString())
 
     }
 
@@ -109,7 +130,24 @@ class LoginActivity : BaseActivity() {
                 })
 
         return d
+    }
 
 
+    private fun showLoader() {
+        login_loader?.show()
+        login_btn_submit.text = null
+        login_btn_submit.isClickable = false
+        login_txv_register.isClickable = false
+        login_etx_username.isEnabled = false
+        login_etx_password.isEnabled = false
+    }
+
+    private fun hideLoader() {
+        login_loader.hide()
+        login_btn_submit.text = getString(R.string.sign_in)
+        login_btn_submit.isClickable = true
+        login_txv_register.isClickable = true
+        login_etx_username.isEnabled = true
+        login_etx_password.isEnabled = true
     }
 }

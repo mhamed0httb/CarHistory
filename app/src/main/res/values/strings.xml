@@ -14,6 +14,7 @@
     <string name="success">Success</string>
     <string name="error_register">Error while creating your account, please try again</string>
     <string name="success_register">Your account has been created, please log in.</string>
+    <string name="invalid_credentials">Invalid credentials</string>
 
 
 </resources>

@@ -11,7 +11,12 @@ class NavigationUtils {
 
     companion object {
         private const val NAVIGATION_EXTRA_KEY = "navigation_extra_key"
-        fun navigateTo(context: Context, finish: Boolean = false, extras: Bundle? = null, activity: Class<out AppCompatActivity>) {
+        fun navigateTo(
+            context: Context,
+            finish: Boolean = false,
+            extras: Bundle? = null,
+            activity: Class<out AppCompatActivity>
+        ) {
             val intent = Intent(context, activity)
             extras?.let {
                 intent.putExtra(NAVIGATION_EXTRA_KEY, it)
