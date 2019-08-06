@@ -1,53 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/deepBlue"
+    android:padding="10dp"
     android:layout_margin="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:cardCornerRadius="10dp">
 
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/item_upcoming_txv_date"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/raleway_light"
-        android:text="time Here AM"
-        android:textColor="@color/white"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/item_upcoming_img"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_cogs"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintStart_toStartOf="@+id/item_upcoming_txv_date"
-        app:layout_constraintTop_toBottomOf="@+id/item_upcoming_txv_date"
-        app:layout_constraintWidth_percent=".15" />
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/item_upcoming_txv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/raleway_bold"
-        android:text="Daily Cycling"
-        android:layout_marginEnd="10dp"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/item_upcoming_img"
-        app:layout_constraintTop_toBottomOf="@+id/item_upcoming_img" />
+        android:background="@color/deepBlue">
 
 
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/item_upcoming_txv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/raleway_light"
+            android:text="time Here AM"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/item_upcoming_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_cogs"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@+id/item_upcoming_txv_date"
+            app:layout_constraintTop_toBottomOf="@+id/item_upcoming_txv_date"
+            app:layout_constraintWidth_percent=".30" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/item_upcoming_txv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/raleway_bold"
+            android:text="Daily Cycling"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/item_upcoming_img"
+            app:layout_constraintTop_toBottomOf="@+id/item_upcoming_img"
+            app:layout_constraintVertical_bias="0" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
