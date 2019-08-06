@@ -7,19 +7,59 @@
     android:background="@color/darkBlue"
     tools:context=".feature.home.MainActivity">
 
+    <!--
+     <CalendarView
+        android:id="@+id/main_calendar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_calendar"
+        android:orientation="horizontal"
+        android:theme="@style/AppTheme.Calendar"
+        app:layout_constraintBottom_toTopOf="@+id/main_guide_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </CalendarView>
+     -->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center"
+        android:background="@drawable/bg_calendar"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/main_toolbar_txv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway_bold"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:text="Title"/>
+
+    </android.support.v7.widget.Toolbar>
+
     <TextView
         android:id="@+id/main_txv_upcoming"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:fontFamily="@font/raleway_bold"
+        android:padding="5dp"
         android:text="Upcoming"
         android:textColor="@color/white"
         android:textSize="15sp"
-        android:padding="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toTopOf="@+id/main_guide_top"
-        />
+        app:layout_constraintTop_toTopOf="@+id/main_guide_top" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_rcv_list_recent"
@@ -28,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/main_guide_center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_txv_upcoming"/>
+        app:layout_constraintTop_toBottomOf="@+id/main_txv_upcoming" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_rcv_list"
@@ -44,14 +84,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".5" />
+        app:layout_constraintGuide_percent=".35" />
 
     <android.support.constraint.Guideline
         android:id="@+id/main_guide_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".25" />
+        app:layout_constraintGuide_percent=".1" />
 
 
 </android.support.constraint.ConstraintLayout>

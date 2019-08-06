@@ -3,6 +3,8 @@ package com.cheersapps.carhistory.feature.home
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.data.entity.Repair
@@ -22,9 +24,19 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initToolbar()
+
         initListRepairs()
         initListUpcoming()
         prepareFakeData()
+
+
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(main_toolbar)
+        supportActionBar?.title = ""
+        main_toolbar_txv_title.text = "Home"
     }
 
     private fun initListUpcoming() {
@@ -52,5 +64,24 @@ class MainActivity : BaseActivity() {
     private fun initListRepairs() {
         main_rcv_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         main_rcv_list.adapter = listAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        val itemId = item?.itemId
+        itemId?.let {
+            when(it) {
+                R.id.menu_main_add -> {
+
+                }
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
