@@ -1,8 +1,8 @@
 package com.cheersapps.carhistory.feature.login
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.cheersapps.carhistory.common.application.App
 import com.cheersapps.carhistory.common.resource.Resource
 import com.cheersapps.carhistory.data.entity.User

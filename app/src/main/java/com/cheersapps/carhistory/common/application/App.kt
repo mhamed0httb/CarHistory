@@ -1,6 +1,6 @@
 package com.cheersapps.carhistory.common.application
 
-import android.support.multidex.MultiDexApplication
+import androidx.multidex.MultiDexApplication
 import com.cheersapps.carhistory.di.component.ApplicationComponent
 import com.cheersapps.carhistory.di.component.DaggerApplicationComponent
 import com.cheersapps.carhistory.di.module.ApplicationModule

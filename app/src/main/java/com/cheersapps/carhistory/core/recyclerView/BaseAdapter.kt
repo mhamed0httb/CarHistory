@@ -1,16 +1,16 @@
 package com.cheersapps.carhistory.core.recyclerView
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import android.os.Handler
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseAdapter<D, V : BaseViewHolder<D>> : RecyclerView.Adapter<V>() {
+abstract class BaseAdapter<D, V : BaseViewHolder<D>> : androidx.recyclerview.widget.RecyclerView.Adapter<V>() {
 
     protected var adapterItems: MutableList<D> = ArrayList()
         private set
 
-    private var rcv: RecyclerView? = null
+    private var rcv: androidx.recyclerview.widget.RecyclerView? = null
 
     private var isAdapterEmpty: MutableLiveData<Boolean> = MutableLiveData()
     fun observeAdapterCount(): LiveData<Boolean> = isAdapterEmpty
@@ -185,12 +185,12 @@ abstract class BaseAdapter<D, V : BaseViewHolder<D>> : RecyclerView.Adapter<V>()
         return this.adapterItems.size
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         rcv = recyclerView
     }
 
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+    override fun onDetachedFromRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         rcv = null
     }

@@ -1,7 +1,7 @@
 package com.cheersapps.carhistory.data.local.dao
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.cheersapps.carhistory.data.entity.Credentials
 import com.cheersapps.carhistory.data.entity.User
 import io.reactivex.Single

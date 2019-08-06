@@ -2,8 +2,8 @@ package com.cheersapps.carhistory.core.activity
 
 import android.content.Context
 import android.content.DialogInterface
-import android.support.annotation.IdRes
-import android.support.v7.app.AlertDialog
+import androidx.annotation.IdRes
+import androidx.appcompat.app.AlertDialog
 import com.cheersapps.carhistory.core.fragment.BaseFragment
 
 object BaseActivityExtension {

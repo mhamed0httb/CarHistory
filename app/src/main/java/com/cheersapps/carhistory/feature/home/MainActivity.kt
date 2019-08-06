@@ -1,8 +1,8 @@
 package com.cheersapps.carhistory.feature.home
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import com.cheersapps.carhistory.R
@@ -40,7 +40,11 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initListUpcoming() {
-        main_rcv_list_recent.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        main_rcv_list_recent.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            this,
+            androidx.recyclerview.widget.RecyclerView.HORIZONTAL,
+            false
+        )
         main_rcv_list_recent.adapter = upcomingAdapter
     }
 
@@ -62,7 +66,11 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initListRepairs() {
-        main_rcv_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        main_rcv_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            this,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
         main_rcv_list.adapter = listAdapter
     }
 

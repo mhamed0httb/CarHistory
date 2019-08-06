@@ -1,6 +1,6 @@
 package com.cheersapps.carhistory.data.local.converter
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import com.cheersapps.carhistory.data.entity.Credentials
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.io.IOException

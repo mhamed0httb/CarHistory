@@ -1,6 +1,6 @@
 package com.cheersapps.carhistory.feature.register
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity

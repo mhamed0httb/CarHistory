@@ -1,6 +1,6 @@
 package com.cheersapps.carhistory.feature.home
 
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.View
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.recyclerView.BaseViewHolder
