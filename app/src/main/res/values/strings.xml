@@ -15,6 +15,8 @@
     <string name="error_register">Error while creating your account, please try again</string>
     <string name="success_register">Your account has been created, please log in.</string>
     <string name="invalid_credentials">Invalid credentials</string>
+    <string name="add_new">Add New</string>
+    <string name="home">Home</string>
 
 
 </resources>

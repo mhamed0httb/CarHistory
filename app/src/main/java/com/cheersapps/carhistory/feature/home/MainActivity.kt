@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.data.entity.Repair
+import com.cheersapps.carhistory.feature.create.CreateActivity
+import com.cheersapps.carhistory.utils.NavigationUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -35,7 +37,7 @@ class MainActivity : BaseActivity() {
     private fun initToolbar() {
         setSupportActionBar(main_toolbar)
         supportActionBar?.title = ""
-        main_toolbar_txv_title.text = "Home"
+        main_toolbar_txv_title.text = getString(R.string.home)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -47,9 +49,9 @@ class MainActivity : BaseActivity() {
 
     private fun initListUpcoming() {
         main_rcv_list_recent.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-            this,
-            androidx.recyclerview.widget.RecyclerView.HORIZONTAL,
-            false
+                this,
+                RecyclerView.HORIZONTAL,
+                false
         )
         main_rcv_list_recent.adapter = upcomingAdapter
     }
@@ -96,9 +98,9 @@ class MainActivity : BaseActivity() {
 
     private fun initListRepairs() {
         main_rcv_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-            this,
-            androidx.recyclerview.widget.RecyclerView.VERTICAL,
-            false
+                this,
+                RecyclerView.VERTICAL,
+                false
         )
         main_rcv_list.adapter = listAdapter
     }
@@ -112,9 +114,9 @@ class MainActivity : BaseActivity() {
 
         val itemId = item?.itemId
         itemId?.let {
-            when(it) {
+            when (it) {
                 R.id.menu_main_add -> {
-
+                    NavigationUtils.navigateTo(context = this, activity = CreateActivity::class.java)
                 }
             }
         }
