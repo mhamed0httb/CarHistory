@@ -1,10 +1,9 @@
 package com.cheersapps.carhistory.feature.home
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.RecyclerView
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.data.entity.Repair
@@ -69,7 +68,30 @@ class MainActivity : BaseActivity() {
         list.add(Repair())
         list.add(Repair())
         listAdapter.changeAll(list)
-        upcomingAdapter.changeAll(list)
+
+
+        val listUpcoming = ArrayList<Repair>()
+        val r1 = Repair()
+        val r2 = Repair()
+        val r3 = Repair()
+        val r4 = Repair()
+        r1.icon = R.drawable.ic_oil
+        r1.body = "Oil change"
+        r1.date = "14/08 2019"
+        r2.icon = R.drawable.ic_filter
+        r2.body = "Filter change"
+        r2.date = "15/08 2019"
+        r3.icon = R.drawable.ic_oil
+        r3.body = "Oil change"
+        r3.date = "20/08 2019"
+        r4.icon = R.drawable.ic_cogs
+        r4.body = "Maintenance"
+        r4.date = "05/09 2019"
+        listUpcoming.add(r1)
+        listUpcoming.add(r2)
+        listUpcoming.add(r3)
+        listUpcoming.add(r4)
+        upcomingAdapter.changeAll(listUpcoming)
     }
 
     private fun initListRepairs() {

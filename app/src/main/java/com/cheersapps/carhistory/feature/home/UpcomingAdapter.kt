@@ -13,6 +13,6 @@ class UpcomingAdapter: BaseAdapter<Repair, UpcomingViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
-
+        holder.bindView(adapterItems[position])
     }
 }
