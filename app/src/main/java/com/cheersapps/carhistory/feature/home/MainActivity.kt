@@ -37,6 +37,13 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(main_toolbar)
         supportActionBar?.title = ""
         main_toolbar_txv_title.text = "Home"
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
+        main_toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun initListUpcoming() {
