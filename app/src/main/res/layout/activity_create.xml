@@ -6,60 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".feature.create.CreateActivity">
 
-    <CalendarView
-        android:id="@+id/create_calendar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_calendar"
-        android:orientation="horizontal"
-        android:theme="@style/AppTheme.Calendar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </CalendarView>
+        <!-- Scrollable view here -->
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/create_btn_submit"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bg_round_button_red"
-        android:fontFamily="@font/raleway_bold"
-        android:text="@string/add_new"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/create_calendar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_calendar"
-        app:layout_constraintWidth_percent=".6" />
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/create_layout_desc"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="What have you done ?"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_btn_submit">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/create_etx_desc"
+        <CalendarView
+            android:id="@+id/main_calendar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textMultiLine"
-            android:minHeight="40dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_calendar"
+            android:orientation="horizontal"
+            android:theme="@style/AppTheme.Calendar"
+            app:layout_constraintBottom_toTopOf="@+id/main_guide_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_collapseMode="parallax"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </CalendarView>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="top"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"/>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

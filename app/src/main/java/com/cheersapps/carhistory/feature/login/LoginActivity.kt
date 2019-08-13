@@ -12,6 +12,7 @@ import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.common.resource.ResourceState
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
+import com.cheersapps.carhistory.feature.home.HomeActivity
 import com.cheersapps.carhistory.feature.register.RegisterActivity
 import com.cheersapps.carhistory.utils.NavigationUtils
 import io.reactivex.Single
@@ -50,7 +51,7 @@ class LoginActivity : BaseActivity() {
                     }
                     ResourceState.SUCCESS -> {
                         hideLoader()
-                        NavigationUtils.navigateTo(context = this@LoginActivity, finish = true, activity = MainActivity::class.java)
+                        NavigationUtils.navigateTo(context = this@LoginActivity, finish = true, activity = HomeActivity::class.java)
                     }
                 }
             }
