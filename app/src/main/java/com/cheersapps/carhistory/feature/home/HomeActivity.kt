@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -20,6 +21,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
+        main_toolbar_txv_title.text = getString(R.string.home)
 
        /*
         val fab: FloatingActionButton = findViewById(R.id.fab)
