@@ -1,13 +1,12 @@
 package com.cheersapps.carhistory.feature.login
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
-import com.cheersapps.carhistory.feature.home.MainActivity
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.common.resource.ResourceState
 import com.cheersapps.carhistory.core.activity.BaseActivity
@@ -51,6 +50,7 @@ class LoginActivity : BaseActivity() {
                     }
                     ResourceState.SUCCESS -> {
                         hideLoader()
+                        loginViewModel.setStayLoggedIn(login_check_stay.isChecked)
                         NavigationUtils.navigateTo(context = this@LoginActivity, finish = true, activity = HomeActivity::class.java)
                     }
                 }

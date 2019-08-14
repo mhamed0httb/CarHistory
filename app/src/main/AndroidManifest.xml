@@ -15,9 +15,8 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".feature.home.HomeActivity"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".feature.create.CreateActivity"></activity>
+            android:label="@string/title_activity_home"/>
+        <activity android:name=".feature.create.CreateActivity"/>
         <activity android:name=".feature.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

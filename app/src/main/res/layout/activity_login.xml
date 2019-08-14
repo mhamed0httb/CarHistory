@@ -93,6 +93,18 @@
         app:layout_constraintTop_toBottomOf="@+id/login_etx_password"
         tools:visibility="visible" />
 
+    <CheckBox
+        android:id="@+id/login_check_stay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:fontFamily="@font/raleway_regular"
+        app:layout_constraintStart_toStartOf="@+id/login_guide_start"
+        app:layout_constraintTop_toBottomOf="@+id/login_txv_error_password"
+        android:text="@string/stay_logged_in"/>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_btn_submit"
@@ -110,7 +122,7 @@
         app:layout_constraintEnd_toStartOf="@+id/login_guide_end"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/login_guide_start"
-        app:layout_constraintTop_toBottomOf="@+id/login_txv_error_password"
+        app:layout_constraintTop_toBottomOf="@+id/login_check_stay"
         app:layout_constraintWidth_percent=".5" />
 
     <androidx.core.widget.ContentLoadingProgressBar

@@ -32,6 +32,7 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="no_spaces">must not contain spaces</string>
+    <string name="stay_logged_in">Stay logged in</string>
 
 
 </resources>
