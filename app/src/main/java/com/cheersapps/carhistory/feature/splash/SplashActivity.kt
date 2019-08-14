@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.feature.home.HomeActivity
+import com.cheersapps.carhistory.feature.home.HomePageActivity
 import com.cheersapps.carhistory.feature.login.LoginActivity
 import com.cheersapps.carhistory.feature.login.LoginViewModel
 import com.cheersapps.carhistory.utils.NavigationUtils
@@ -26,7 +27,7 @@ class SplashActivity : BaseActivity() {
             Log.d("animation", " vals: ${it.animatedValue}")
             if (it.animatedFraction == 1f) {
                 if (loginViewModel.getStayLoggedIn())
-                    NavigationUtils.navigateTo(context = this, finish = true, activity = HomeActivity::class.java)
+                    NavigationUtils.navigateTo(context = this, finish = true, activity = HomePageActivity::class.java)
                 else
                     NavigationUtils.navigateTo(context = this, finish = true, activity = LoginActivity::class.java)
             }

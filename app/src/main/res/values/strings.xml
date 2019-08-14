@@ -33,6 +33,13 @@
     <string name="menu_send">Send</string>
     <string name="no_spaces">must not contain spaces</string>
     <string name="stay_logged_in">Stay logged in</string>
+    <string name="title_activity_home_page">HomePageActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="loading">Loading …</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
 
 
 </resources>
