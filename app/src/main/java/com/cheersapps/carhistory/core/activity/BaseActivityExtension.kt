@@ -37,15 +37,20 @@ object BaseActivityExtension {
         context: Context,
         title: String,
         message: String,
-        listener: DialogInterface.OnClickListener? = null
+        listener: DialogInterface.OnClickListener? = null,
+        withCloseButton: Boolean = false
     ) {
-        AlertDialog.Builder(context)
+        val alertDialog = AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(android.R.string.yes, listener)
             //.setIcon(android.R.drawable.ic_dialog_alert)
             .setCancelable(false)
-            .show()
 
+
+        if(withCloseButton){
+            alertDialog.setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.dismiss() }
+        }
+        alertDialog.show()
     }
 }
