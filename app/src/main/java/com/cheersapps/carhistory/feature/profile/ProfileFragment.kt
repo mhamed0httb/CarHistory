@@ -8,26 +8,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.fragment.BaseFragment
+import com.cheersapps.carhistory.feature.home.HomeViewModel
+import com.cheersapps.carhistory.usecase.profile.FieldsValidator
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.dialog_edit_password.view.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import java.util.regex.Pattern
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class ProfileFragment : BaseFragment() {
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnProfileInteractionListener? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private var listener: OnProfileInteractionListener? = null
+    private val homeViewModel: HomeViewModel by lazy {
+        ViewModelProviders.of(this)[HomeViewModel::class.java]
     }
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +36,25 @@ class ProfileFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initTextWatcher(view)
+        //initTextWatcher(view)
         initClicks(view)
+        initObservers(view)
+    }
+
+    private fun initObservers(view: View) {
+        homeViewModel.getLoggedInUser().observe(this, Observer {loggedInUser->
+            loggedInUser?.let {
+                val builder = StringBuilder()
+                builder.append(it.firstName)
+                builder.append(" ")
+                builder.append(it.lastName)
+                view.profile_txv_logged_user_name.text = builder.toString()
+
+                view.profile_etx_fname.setText(it.firstName)
+                view.profile_etx_lname.setText(it.lastName)
+                view.profile_etx_username.setText(it.credentials.username)
+            }
+        })
     }
 
     private fun initTextWatcher(view: View) {
@@ -112,12 +128,12 @@ class ProfileFragment : BaseFragment() {
             } else {
                 val pattern = Pattern.compile("[^\\s]+")
                 val matcher = pattern.matcher(username.toString())
-                if(!matcher.matches()) {
+                if (!matcher.matches()) {
                     isErrors = isErrors.copy(third = true)
                     view.profile_txv_error_username.text = getString(R.string.no_spaces)
                     view.profile_txv_error_username.visibility = View.VISIBLE
                     view.profile_etx_username.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
-                }else {
+                } else {
                     view.profile_txv_error_username.visibility = View.GONE
                 }
             }
@@ -128,6 +144,93 @@ class ProfileFragment : BaseFragment() {
             view.profile_btn_submit.visibility = View.GONE
             view.profile_btn_submit.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_out))
         }
+
+        view.profile_btn_edit_password.setOnClickListener {
+            val dialogView: View = layoutInflater.inflate(R.layout.dialog_edit_password, null)
+            val dialog = BottomSheetDialog(context!!)
+
+            val editPasswordView: View = prepareEditPasswordView(dialogView)
+
+            dialog.setContentView(editPasswordView)
+            dialog.show()
+
+        }
+    }
+
+    private fun prepareEditPasswordView(dialogView: View): View {
+        dialogView.edit_password_btn_submit.setOnClickListener {
+            val oldPass = dialogView.edit_password_etx_old_password.text.toString()
+            val newPass = dialogView.edit_password_etx_password.text.toString()
+            val confirmPass = dialogView.edit_password_etx_confirm_password.text.toString()
+
+            var errors = Triple(first = false, second = false, third = false)
+            val resultFieldsValidator = homeViewModel.checkEditPasswordFields(oldPass, newPass, confirmPass)
+
+            when (resultFieldsValidator.first) {
+                FieldsValidator.EMPTY -> {
+                    dialogView.edit_password_txv_error_old_password.text = getString(R.string.empty_field)
+                    dialogView.edit_password_txv_error_old_password.visibility = View.VISIBLE
+                    dialogView.edit_password_etx_old_password.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                    errors = errors.copy(first = false)
+
+                }
+                FieldsValidator.NOT_EMPTY -> {
+                    dialogView.edit_password_txv_error_old_password.visibility = View.GONE
+                    errors = errors.copy(first = true)
+                }
+                FieldsValidator.NO_MATCH -> {
+                }
+                FieldsValidator.MATCH -> {
+                }
+            }
+
+            when (resultFieldsValidator.second) {
+                FieldsValidator.EMPTY -> {
+                    dialogView.edit_password_txv_error_password.text = getString(R.string.empty_field)
+                    dialogView.edit_password_txv_error_password.visibility = View.VISIBLE
+                    dialogView.edit_password_etx_password.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                    errors = errors.copy(second = false)
+                }
+                FieldsValidator.NOT_EMPTY -> {
+                    dialogView.edit_password_txv_error_password.visibility = View.GONE
+                    errors = errors.copy(second = true)
+                }
+                FieldsValidator.NO_MATCH -> {
+                    dialogView.edit_password_txv_error_password.text = getString(R.string.no_match)
+                    dialogView.edit_password_txv_error_password.visibility = View.VISIBLE
+                    dialogView.edit_password_etx_password.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                    errors = errors.copy(second = false)
+                }
+                FieldsValidator.MATCH -> {
+                    dialogView.edit_password_txv_error_password.visibility = View.GONE
+                    errors = errors.copy(second = true)
+                }
+            }
+
+            when (resultFieldsValidator.third) {
+                FieldsValidator.EMPTY -> {
+                    dialogView.edit_password_txv_error_confirm_password.text = getString(R.string.empty_field)
+                    dialogView.edit_password_txv_error_confirm_password.visibility = View.VISIBLE
+                    dialogView.edit_password_etx_confirm_password.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                    errors = errors.copy(third = false)
+                }
+                FieldsValidator.NOT_EMPTY -> {
+                    dialogView.edit_password_txv_error_confirm_password.visibility = View.GONE
+                    errors = errors.copy(third = true)
+                }
+                FieldsValidator.NO_MATCH -> {
+                }
+                FieldsValidator.MATCH -> {
+                }
+            }
+
+            if(errors.first && errors.second && errors.third){
+                dialogView.edit_password_btn_submit.text = ""
+                dialogView.edit_password_loader.visibility = View.VISIBLE
+            }
+        }
+
+        return dialogView
     }
 
 
@@ -153,12 +256,6 @@ class ProfileFragment : BaseFragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                ProfileFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+        fun newInstance() = ProfileFragment()
     }
 }

@@ -8,6 +8,7 @@ import com.cheersapps.carhistory.common.resource.Resource
 import com.cheersapps.carhistory.data.entity.User
 import com.cheersapps.carhistory.usecase.login.GetStayLoggedIn
 import com.cheersapps.carhistory.usecase.login.LoginUseCase
+import com.cheersapps.carhistory.usecase.login.SetLoggedInUserIdUseCase
 import com.cheersapps.carhistory.usecase.login.SetStayLoggedIn
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
@@ -29,6 +30,9 @@ class LoginViewModel @Inject constructor() : ViewModel() {
 
     @Inject
     lateinit var getStayLoggedIn: GetStayLoggedIn
+
+    @Inject
+    lateinit var setLoggedInUserIdUseCase: SetLoggedInUserIdUseCase
 
     private val loginLiveData = MutableLiveData<Resource<User>>()
     fun observeLogin(): LiveData<Resource<User>> = loginLiveData
@@ -58,6 +62,8 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
 
     fun getStayLoggedIn(): Boolean = getStayLoggedIn.execute()
+
+    fun setLoggedInUserId(id: String) = setLoggedInUserIdUseCase.execute(id)
 
 
 }

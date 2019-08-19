@@ -3,6 +3,7 @@
     <string name="create_account">Don\'t have an account ?\nCreate Now!</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="old_password">Old password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
@@ -43,6 +44,7 @@
     <string name="loading">Loading …</string>
     <string name="search">Search</string>
     <string name="profile">Profile</string>
+    <string name="edit_password">Edit password</string>
     <string name="test">Open your Android Studio &amp; create a new Project. For Kotlin support, check the checkbox of Kotlin support.  Now give name whatever you like and We’ll keep all the things by default and clicked finish.
 
 If you have any difficulty in creating the app you can have a look into Develop android apps using java \n

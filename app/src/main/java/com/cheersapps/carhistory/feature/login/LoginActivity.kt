@@ -11,7 +11,6 @@ import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.common.resource.ResourceState
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
-import com.cheersapps.carhistory.feature.home.HomeActivity
 import com.cheersapps.carhistory.feature.home.HomePageActivity
 import com.cheersapps.carhistory.feature.register.RegisterActivity
 import com.cheersapps.carhistory.utils.NavigationUtils
@@ -52,6 +51,7 @@ class LoginActivity : BaseActivity() {
                     ResourceState.SUCCESS -> {
                         hideLoader()
                         loginViewModel.setStayLoggedIn(login_check_stay.isChecked)
+                        loginViewModel.setLoggedInUserId(resource.data?.id!!)
                         NavigationUtils.navigateTo(context = this@LoginActivity, finish = true, activity = HomePageActivity::class.java)
                     }
                 }

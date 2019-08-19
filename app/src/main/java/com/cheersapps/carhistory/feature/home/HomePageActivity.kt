@@ -42,7 +42,7 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
                 home_toolbar_txv_title.text = getString(R.string.profile)
                 replaceFragmentSafely(
                         R.id.home_container,
-                        ProfileFragment.newInstance("", ""),
+                        ProfileFragment.newInstance(),
                         ProfileFragment::class.java.simpleName,
                         false
                 )

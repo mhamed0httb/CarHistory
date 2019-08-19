@@ -1,5 +1,6 @@
 package com.cheersapps.carhistory.data.repository.user
 
+import androidx.lifecycle.LiveData
 import com.cheersapps.carhistory.data.entity.Credentials
 import com.cheersapps.carhistory.data.entity.User
 import com.cheersapps.carhistory.data.local.datasource.user.UserLocal
@@ -18,5 +19,9 @@ class UserRepository @Inject constructor() {
 
     fun login(credentials: Credentials): Single<User> {
         return userLocal.login(credentials)
+    }
+
+    fun findUserById(id: String): LiveData<User> {
+        return userLocal.findById(id)
     }
 }

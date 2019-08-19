@@ -1,5 +1,6 @@
 package com.cheersapps.carhistory.data.local.datasource.user
 
+import androidx.lifecycle.LiveData
 import com.cheersapps.carhistory.data.entity.Credentials
 import com.cheersapps.carhistory.data.entity.User
 import com.cheersapps.carhistory.data.local.db.AppDatabase
@@ -20,6 +21,10 @@ class UserLocal @Inject constructor() {
 
     fun login(credentials: Credentials): Single<User> {
         return appDatabase.userDao.login(credentials)
+    }
+
+    fun findById(id: String): LiveData<User> {
+        return appDatabase.userDao.findById(id)
     }
 
 }
