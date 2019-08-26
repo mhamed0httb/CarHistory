@@ -10,6 +10,6 @@ class UpcomingViewHolder(view: View): BaseViewHolder<Repair>(view) {
     override fun bindView(item: Repair) {
         itemView.item_upcoming_img.setImageResource(item.icon!!)
         itemView.item_upcoming_txv_title.text = item.body
-        itemView.item_upcoming_txv_date.text = item.date
+        //itemView.item_upcoming_txv_date.text = item.date
     }
 }

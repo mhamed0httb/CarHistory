@@ -77,6 +77,7 @@ class MainActivity : BaseActivity() {
         val r2 = Repair()
         val r3 = Repair()
         val r4 = Repair()
+        /*
         r1.icon = R.drawable.ic_oil
         r1.body = "Oil change"
         r1.date = "14/08 2019"
@@ -89,6 +90,8 @@ class MainActivity : BaseActivity() {
         r4.icon = R.drawable.ic_cogs
         r4.body = "Maintenance"
         r4.date = "05/09 2019"
+         */
+
         listUpcoming.add(r1)
         listUpcoming.add(r2)
         listUpcoming.add(r3)

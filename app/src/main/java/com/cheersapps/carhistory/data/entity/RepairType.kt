@@ -4,5 +4,5 @@ import com.cheersapps.carhistory.R
 
 
 enum class RepairType(val title: String, val icon: Int) {
-    OIL_CHANGE("Oil Change", R.drawable.ic_cogs), MAINTENANCE("Maintenance", R.drawable.ic_oil)
+    OIL_CHANGE("Oil Change", R.drawable.ic_oil), MAINTENANCE("Maintenance", R.drawable.ic_cogs)
 }

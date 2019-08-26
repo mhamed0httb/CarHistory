@@ -2,10 +2,13 @@ package com.cheersapps.carhistory.feature.home
 
 import androidx.lifecycle.ViewModel
 import com.cheersapps.carhistory.common.application.App
+import com.cheersapps.carhistory.data.entity.Repair
+import com.cheersapps.carhistory.data.repository.repair.RepairRepository
 import com.cheersapps.carhistory.usecase.login.GetLoggedInUserUseCase
 import com.cheersapps.carhistory.usecase.login.SetStayLoggedIn
 import com.cheersapps.carhistory.usecase.profile.CheckEditPasswordFieldsUseCase
 import com.cheersapps.carhistory.usecase.profile.FieldsValidator
+import io.reactivex.Completable
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor() : ViewModel() {
@@ -23,6 +26,9 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var getLoggedInUserUseCase: GetLoggedInUserUseCase
 
+    @Inject
+    lateinit var repairRepository: RepairRepository
+
     fun setStayLoggedIn(stay: Boolean) {
         setStayLoggedIn.execute(stay)
     }
@@ -32,5 +38,9 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     }
 
     fun getLoggedInUser() = getLoggedInUserUseCase.execute()
+
+    fun insertRepair(repair: Repair): Completable {
+        return repairRepository.insert(repair)
+    }
 
 }
