@@ -13,13 +13,14 @@ import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.core.activity.BaseActivityExtension.replaceFragmentSafely
 import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
+import com.cheersapps.carhistory.feature.create.CreateFragment
 import com.cheersapps.carhistory.feature.login.LoginActivity
 import com.cheersapps.carhistory.feature.profile.ProfileFragment
 import com.cheersapps.carhistory.utils.NavigationUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page.*
 
-class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionListener {
+class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionListener, CreateFragment.OnCreateInteractionListener {
 
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this)[HomeViewModel::class.java]
@@ -36,6 +37,12 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
             }
             R.id.navigation_dashboard -> {
                 home_toolbar_txv_title.text = getString(R.string.title_dashboard)
+                replaceFragmentSafely(
+                        R.id.home_container,
+                        CreateFragment.newInstance(),
+                        CreateFragment::class.java.simpleName,
+                        false
+                )
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_profile -> {

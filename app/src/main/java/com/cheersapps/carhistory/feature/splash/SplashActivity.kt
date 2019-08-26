@@ -9,6 +9,7 @@ import com.cheersapps.carhistory.feature.home.HomeActivity
 import com.cheersapps.carhistory.feature.home.HomePageActivity
 import com.cheersapps.carhistory.feature.login.LoginActivity
 import com.cheersapps.carhistory.feature.login.LoginViewModel
+import com.cheersapps.carhistory.feature.onBoarding.OnBoardingActivity
 import com.cheersapps.carhistory.utils.NavigationUtils
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -29,7 +30,7 @@ class SplashActivity : BaseActivity() {
                 if (loginViewModel.getStayLoggedIn())
                     NavigationUtils.navigateTo(context = this, finish = true, activity = HomePageActivity::class.java)
                 else
-                    NavigationUtils.navigateTo(context = this, finish = true, activity = LoginActivity::class.java)
+                    NavigationUtils.navigateTo(context = this, finish = true, activity = OnBoardingActivity::class.java)
             }
         }
 

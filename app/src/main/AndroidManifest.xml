@@ -13,9 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".feature.onBoarding.OnBoardingActivity"></activity>
         <activity
             android:name=".feature.home.HomePageActivity"
-            android:label="@string/title_activity_home_page"></activity>
+            android:label="@string/title_activity_home_page" />
         <activity
             android:name=".feature.home.HomeActivity"
             android:label="@string/title_activity_home" />
