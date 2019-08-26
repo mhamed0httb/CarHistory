@@ -40,6 +40,7 @@
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
+    <string name="title_create">Create</string>
     <string name="title_notifications">Notifications</string>
     <string name="loading">Loading …</string>
     <string name="search">Search</string>
@@ -121,8 +122,7 @@ If you have any difficulty in creating the app you can have a look into Develop 
 </string>
     <string name="update">Update</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="skip">Skip</string>
 
 

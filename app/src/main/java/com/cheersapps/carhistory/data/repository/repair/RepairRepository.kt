@@ -1,5 +1,6 @@
 package com.cheersapps.carhistory.data.repository.repair
 
+import androidx.lifecycle.LiveData
 import com.cheersapps.carhistory.data.entity.Repair
 import com.cheersapps.carhistory.data.local.datasource.repair.RepairLocal
 import io.reactivex.Completable
@@ -12,5 +13,9 @@ class RepairRepository @Inject constructor() {
 
     fun insert(repair: Repair): Completable {
         return repairLocal.insert(repair)
+    }
+
+    fun findAll(): LiveData<List<Repair>> {
+        return repairLocal.findAll()
     }
 }

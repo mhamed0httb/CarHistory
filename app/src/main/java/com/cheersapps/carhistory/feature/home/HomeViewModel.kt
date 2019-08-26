@@ -1,5 +1,6 @@
 package com.cheersapps.carhistory.feature.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.cheersapps.carhistory.common.application.App
 import com.cheersapps.carhistory.data.entity.Repair
@@ -41,6 +42,10 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     fun insertRepair(repair: Repair): Completable {
         return repairRepository.insert(repair)
+    }
+
+    fun getRepairs(): LiveData<List<Repair>> {
+        return repairRepository.findAll()
     }
 
 }

@@ -20,7 +20,7 @@ import com.cheersapps.carhistory.utils.NavigationUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page.*
 
-class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionListener, CreateFragment.OnCreateInteractionListener {
+class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionListener, CreateFragment.OnCreateInteractionListener, HomeFragment.OnHomeInteractionListener {
 
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this)[HomeViewModel::class.java]
@@ -33,10 +33,16 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
         when (item.itemId) {
             R.id.navigation_home -> {
                 home_toolbar_txv_title.text = getString(R.string.home)
+                replaceFragmentSafely(
+                        R.id.home_container,
+                        HomeFragment.newInstance(),
+                        HomeFragment::class.java.simpleName,
+                        false
+                )
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                home_toolbar_txv_title.text = getString(R.string.title_dashboard)
+                home_toolbar_txv_title.text = getString(R.string.title_create)
                 replaceFragmentSafely(
                         R.id.home_container,
                         CreateFragment.newInstance(),
@@ -65,6 +71,13 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
 
         initToolbar()
         initBottomNavigation()
+
+        replaceFragmentSafely(
+                R.id.home_container,
+                HomeFragment.newInstance(),
+                HomeFragment::class.java.simpleName,
+                false
+        )
     }
 
     private fun initToolbar() {
