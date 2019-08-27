@@ -18,4 +18,8 @@ class RepairRepository @Inject constructor() {
     fun findAll(): LiveData<List<Repair>> {
         return repairLocal.findAll()
     }
+
+    fun delete(repair: Repair): Completable {
+        return repairLocal.delete(repair)
+    }
 }

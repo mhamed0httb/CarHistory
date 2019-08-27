@@ -21,4 +21,10 @@ class RepairLocal @Inject constructor() {
     fun findAll(): LiveData<List<Repair>> {
         return appDatabase.repairDao.findAll()
     }
+
+    fun delete(repair: Repair): Completable {
+        return Completable.fromAction {
+            appDatabase.repairDao.delete(repair)
+        }
+    }
 }

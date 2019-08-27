@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.fragment.BaseFragment
 import com.cheersapps.carhistory.data.entity.Repair
+import io.reactivex.CompletableObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -23,7 +28,30 @@ class HomeFragment : BaseFragment() {
     }
 
     private val listAdapter: ListAdapter by lazy {
-        ListAdapter(listener)
+        ListAdapter(listener, this::deleteRepair)
+    }
+
+    private var isObserved: Boolean = false
+
+
+    private fun deleteRepair(repair: Repair, position: Int) {
+        Toast.makeText(context!!, "deleting at $position", Toast.LENGTH_SHORT).show()
+        homeViewModel.deleteRepair(repair)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : CompletableObserver {
+                    override fun onComplete() {
+                        listAdapter.removeItemAt(position)
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                    }
+
+                    override fun onError(e: Throwable) {
+                        Toast.makeText(context!!, "Error", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
     }
 
 
@@ -36,7 +64,10 @@ class HomeFragment : BaseFragment() {
 
         initRcvRepairs(view)
         homeViewModel.getRepairs().observe(this, Observer {
-            listAdapter.changeAll(it)
+            if (!isObserved) {
+                listAdapter.changeAll(it)
+                isObserved = true
+            }
         })
     }
 
@@ -70,4 +101,6 @@ class HomeFragment : BaseFragment() {
         @JvmStatic
         fun newInstance() = HomeFragment()
     }
+
+
 }

@@ -128,8 +128,9 @@ If you have any difficulty in creating the app you can have a look into Develop 
     <string name="choose_type">Choose type</string>
     <string name="where">Where ?</string>
     <string name="what_have_u_done">what have u done ?</string>
-
-
+    <string name="created_at">Created at:</string>
+    <string name="location">Location:</string>
+    <string name="date">Date:</string>
 
 
 </resources>

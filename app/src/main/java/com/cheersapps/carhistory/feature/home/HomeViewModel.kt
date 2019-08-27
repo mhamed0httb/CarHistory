@@ -57,4 +57,8 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         return userRepository.updateUser(user)
     }
 
+    fun deleteRepair(repair: Repair): Completable {
+        return repairRepository.delete(repair)
+    }
+
 }

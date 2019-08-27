@@ -1,6 +1,5 @@
 package com.cheersapps.carhistory.core.activity
 
-import android.content.Context
 import android.content.DialogInterface
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog

@@ -17,6 +17,7 @@ import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
 import com.cheersapps.carhistory.data.entity.Repair
 import com.cheersapps.carhistory.data.entity.RepairType
 import com.cheersapps.carhistory.feature.create.CreateFragment
+import com.cheersapps.carhistory.feature.details.RepairDetailsFragment
 import com.cheersapps.carhistory.feature.login.LoginActivity
 import com.cheersapps.carhistory.feature.profile.ProfileFragment
 import com.cheersapps.carhistory.utils.NavigationUtils
@@ -33,15 +34,16 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
     private var searchView: SearchView? = null
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        supportFragmentManager.popBackStack()
         when (item.itemId) {
             R.id.navigation_home -> {
                 home_toolbar_txv_title.text = getString(R.string.home)
-                replaceFragmentSafely(
-                        R.id.home_container,
-                        HomeFragment.newInstance(),
-                        HomeFragment::class.java.simpleName,
-                        false
-                )
+                    replaceFragmentSafely(
+                            R.id.home_container,
+                            HomeFragment.newInstance(),
+                            HomeFragment::class.java.simpleName,
+                            false
+                    )
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
@@ -133,6 +135,13 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
             searchView!!.isIconified = true
             return
         }
+
+        if (supportFragmentManager.findFragmentById(R.id.home_container) is RepairDetailsFragment){
+            home_toolbar_txv_title.text = getString(R.string.home)
+            toggleNavigation(false)
+        }
+
+
         super.onBackPressed()
     }
 
@@ -161,6 +170,8 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
             home_toolbar_txv_title.text = RepairType.valueOf(it).title
         }
 
+        toggleNavigation(true)
+
         replaceFragmentSafely(
                 R.id.home_container,
                 RepairDetailsFragment.newInstance(repair),
@@ -168,14 +179,26 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
                 true
         )
 
-       /*
-        supportFragmentManager
-                .beginTransaction()
-                .addSharedElement(sharedView, "transition_img_second")
-                .replace(R.id.home_container, RepairDetailsFragment.newInstance(repair), RepairDetailsFragment::class.java.simpleName)
-                .addToBackStack(RepairDetailsFragment::class.java.simpleName)
-                .commit()
-        */
+        /*
+         supportFragmentManager
+                 .beginTransaction()
+                 .addSharedElement(sharedView, "transition_img_second")
+                 .replace(R.id.home_container, RepairDetailsFragment.newInstance(repair), RepairDetailsFragment::class.java.simpleName)
+                 .addToBackStack(RepairDetailsFragment::class.java.simpleName)
+                 .commit()
+         */
+    }
+
+
+    private fun toggleNavigation(isEnabled: Boolean) {
+        if(isEnabled) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            home_toolbar.setNavigationOnClickListener {
+                onBackPressed()
+            }
+        } else {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
     }
 
 }
