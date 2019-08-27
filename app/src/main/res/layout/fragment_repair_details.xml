@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.home.RepairDetailsFragment">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/deepBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cogs" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_txv_created_at_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/raleway_bold"
+        android:text="Created at"
+        android:textColor="@color/deepBlue"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_txv_created_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/raleway_bold"
+        android:layout_marginStart="16dp"
+        android:text="date "
+        android:textColor="@color/deepBlue"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="@+id/details_txv_created_at_label"
+        app:layout_constraintBottom_toBottomOf="@+id/details_txv_created_at_label"
+        app:layout_constraintStart_toEndOf="@+id/details_txv_created_at_label"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +14,8 @@ import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.core.activity.BaseActivityExtension.replaceFragmentSafely
 import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
+import com.cheersapps.carhistory.data.entity.Repair
+import com.cheersapps.carhistory.data.entity.RepairType
 import com.cheersapps.carhistory.feature.create.CreateFragment
 import com.cheersapps.carhistory.feature.login.LoginActivity
 import com.cheersapps.carhistory.feature.profile.ProfileFragment
@@ -148,6 +151,31 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
                 dialogListener,
                 true
         )
+    }
+
+    /**
+     * OnHomeInteractionListener implementation
+     */
+    override fun detailsRepair(repair: Repair, sharedView: View) {
+        repair.type?.let {
+            home_toolbar_txv_title.text = RepairType.valueOf(it).title
+        }
+
+        replaceFragmentSafely(
+                R.id.home_container,
+                RepairDetailsFragment.newInstance(repair),
+                RepairDetailsFragment::class.java.simpleName,
+                true
+        )
+
+       /*
+        supportFragmentManager
+                .beginTransaction()
+                .addSharedElement(sharedView, "transition_img_second")
+                .replace(R.id.home_container, RepairDetailsFragment.newInstance(repair), RepairDetailsFragment::class.java.simpleName)
+                .addToBackStack(RepairDetailsFragment::class.java.simpleName)
+                .commit()
+        */
     }
 
 }

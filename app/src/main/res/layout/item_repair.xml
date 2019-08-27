@@ -47,7 +47,7 @@
             android:layout_width="5dp"
             android:layout_height="5dp"
             android:layout_marginStart="8dp"
-            android:src="@drawable/ic_dot"
+            app:srcCompat="@drawable/ic_dot"
             app:layout_constraintBottom_toBottomOf="@+id/item_repair_txv_date"
             app:layout_constraintStart_toEndOf="@+id/item_repair_txv_date"
             app:layout_constraintTop_toTopOf="@+id/item_repair_txv_date" />

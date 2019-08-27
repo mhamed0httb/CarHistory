@@ -13,9 +13,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
+   /*
     private val listAdapter: ListAdapter by lazy {
         ListAdapter()
     }
+    */
 
     private val upcomingAdapter: UpcomingAdapter by lazy {
         UpcomingAdapter()
@@ -69,7 +71,7 @@ class MainActivity : BaseActivity() {
         list.add(Repair())
         list.add(Repair())
         list.add(Repair())
-        listAdapter.changeAll(list)
+        //listAdapter.changeAll(list)
 
 
         val listUpcoming = ArrayList<Repair>()
@@ -105,7 +107,7 @@ class MainActivity : BaseActivity() {
                 RecyclerView.VERTICAL,
                 false
         )
-        main_rcv_list.adapter = listAdapter
+        //main_rcv_list.adapter = listAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -4,9 +4,10 @@ import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.cheersapps.carhistory.utils.DateUtils
+import java.io.Serializable
 
 @Entity
-class Repair {
+class Repair: Serializable {
 
     @PrimaryKey(autoGenerate = false)
     @NonNull

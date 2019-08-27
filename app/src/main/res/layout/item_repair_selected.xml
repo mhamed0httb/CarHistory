@@ -102,7 +102,7 @@
         android:background="@color/lightBlue"
         android:orientation="horizontal"
         android:padding="10dp"
-
+        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,6 +115,18 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/raleway_bold"
             android:text="Delete"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_repair_txv_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway_bold"
+            android:text="Details"
+            android:layout_weight="1"
+            android:gravity="end"
             android:textColor="@color/white"
             android:textSize="15sp" />
 

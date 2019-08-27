@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.fragment.BaseFragment
+import com.cheersapps.carhistory.data.entity.Repair
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -22,7 +23,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private val listAdapter: ListAdapter by lazy {
-        ListAdapter()
+        ListAdapter(listener)
     }
 
 
@@ -61,7 +62,7 @@ class HomeFragment : BaseFragment() {
 
 
     interface OnHomeInteractionListener {
-
+        fun detailsRepair(repair: Repair, sharedView: View)
     }
 
     companion object {
