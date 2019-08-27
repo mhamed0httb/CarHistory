@@ -23,7 +23,7 @@ interface RepairDao {
     @Query("SELECT * FROM Repair WHERE id =:repairId")
     fun findById(repairId: String): LiveData<Repair>
 
-    @Query("SELECT * FROM Repair")
+    @Query("SELECT * FROM Repair ORDER BY date DESC")
     fun findAll(): LiveData<List<Repair>>
 
     @Query("DELETE FROM Repair")

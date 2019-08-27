@@ -24,4 +24,8 @@ class UserRepository @Inject constructor() {
     fun findUserById(id: String): LiveData<User> {
         return userLocal.findById(id)
     }
+
+    fun updateUser(user: User): Completable {
+        return userLocal.updateUser(user)
+    }
 }

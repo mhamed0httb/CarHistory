@@ -46,7 +46,7 @@ class LoginActivity : BaseActivity() {
                     }
                     ResourceState.ERROR -> {
                         hideLoader()
-                        showMessage(this, getString(R.string.error), getString(R.string.invalid_credentials))
+                        showMessage(getString(R.string.error), getString(R.string.invalid_credentials))
                     }
                     ResourceState.SUCCESS -> {
                         hideLoader()

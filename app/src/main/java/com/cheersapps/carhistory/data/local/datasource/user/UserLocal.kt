@@ -27,4 +27,10 @@ class UserLocal @Inject constructor() {
         return appDatabase.userDao.findById(id)
     }
 
+    fun updateUser(user: User): Completable {
+        return Completable.fromAction {
+            appDatabase.userDao.update(user)
+        }
+    }
+
 }

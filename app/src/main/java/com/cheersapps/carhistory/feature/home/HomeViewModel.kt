@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.cheersapps.carhistory.common.application.App
 import com.cheersapps.carhistory.data.entity.Repair
+import com.cheersapps.carhistory.data.entity.User
 import com.cheersapps.carhistory.data.repository.repair.RepairRepository
+import com.cheersapps.carhistory.data.repository.user.UserRepository
 import com.cheersapps.carhistory.usecase.login.GetLoggedInUserUseCase
 import com.cheersapps.carhistory.usecase.login.SetStayLoggedIn
 import com.cheersapps.carhistory.usecase.profile.CheckEditPasswordFieldsUseCase
@@ -30,6 +32,9 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var repairRepository: RepairRepository
 
+    @Inject
+    lateinit var userRepository: UserRepository
+
     fun setStayLoggedIn(stay: Boolean) {
         setStayLoggedIn.execute(stay)
     }
@@ -46,6 +51,10 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     fun getRepairs(): LiveData<List<Repair>> {
         return repairRepository.findAll()
+    }
+
+    fun updateUser(user: User): Completable {
+        return userRepository.updateUser(user)
     }
 
 }

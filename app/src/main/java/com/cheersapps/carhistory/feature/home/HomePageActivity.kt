@@ -143,7 +143,6 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
             dialog.dismiss()
         }
         showMessage(
-                this,
                 getString(R.string.logout),
                 getString(R.string.info_logout),
                 dialogListener,

@@ -9,11 +9,11 @@ import com.cheersapps.carhistory.core.fragment.BaseFragment
 object BaseActivityExtension {
 
     fun BaseActivity.replaceFragmentSafely(
-        @IdRes layout: Int,
-        fragment: BaseFragment,
-        tag: String,
-        addToBackStack: Boolean,
-        allowStateLoss: Boolean = false
+            @IdRes layout: Int,
+            fragment: BaseFragment,
+            tag: String,
+            addToBackStack: Boolean,
+            allowStateLoss: Boolean = false
     ) {
 
         if (tag.isNotEmpty()) {
@@ -34,21 +34,20 @@ object BaseActivityExtension {
     }
 
     fun BaseActivity.showMessage(
-        context: Context,
-        title: String,
-        message: String,
-        listener: DialogInterface.OnClickListener? = null,
-        withCloseButton: Boolean = false
+            title: String,
+            message: String,
+            listener: DialogInterface.OnClickListener? = null,
+            withCloseButton: Boolean = false
     ) {
-        val alertDialog = AlertDialog.Builder(context)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton(android.R.string.yes, listener)
-            //.setIcon(android.R.drawable.ic_dialog_alert)
-            .setCancelable(false)
+        val alertDialog = AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.yes, listener)
+                //.setIcon(android.R.drawable.ic_dialog_alert)
+                .setCancelable(false)
 
 
-        if(withCloseButton){
+        if (withCloseButton) {
             alertDialog.setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.dismiss() }
         }
         alertDialog.show()

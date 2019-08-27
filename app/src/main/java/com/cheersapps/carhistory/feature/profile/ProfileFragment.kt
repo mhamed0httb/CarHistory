@@ -11,13 +11,19 @@ import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.cheersapps.carhistory.R
+import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.core.fragment.BaseFragment
+import com.cheersapps.carhistory.data.entity.User
 import com.cheersapps.carhistory.feature.home.HomeViewModel
 import com.cheersapps.carhistory.usecase.profile.FieldsValidator
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableCompletableObserver
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.dialog_edit_password.view.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import java.util.regex.Pattern
+import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
 
 
 class ProfileFragment : BaseFragment() {
@@ -26,6 +32,8 @@ class ProfileFragment : BaseFragment() {
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this)[HomeViewModel::class.java]
     }
+
+    private var loggedInUser: User? = null
 
 
     override fun onCreateView(
@@ -42,17 +50,19 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun initObservers(view: View) {
-        homeViewModel.getLoggedInUser().observe(this, Observer {loggedInUser->
+        homeViewModel.getLoggedInUser().observe(this, Observer { loggedInUser ->
             loggedInUser?.let {
                 val builder = StringBuilder()
-                builder.append(it.firstName)
+                builder.append(it.firstName?.capitalize())
                 builder.append(" ")
-                builder.append(it.lastName)
+                builder.append(it.lastName?.capitalize())
                 view.profile_txv_logged_user_name.text = builder.toString()
 
                 view.profile_etx_fname.setText(it.firstName)
                 view.profile_etx_lname.setText(it.lastName)
                 view.profile_etx_username.setText(it.credentials.username)
+
+                this@ProfileFragment.loggedInUser = it
             }
         })
     }
@@ -85,14 +95,7 @@ class ProfileFragment : BaseFragment() {
         }
 
         view.profile_fab_edit.setOnClickListener {
-            val slideUp = AnimationUtils.loadAnimation(context, R.anim.fade_in)
-            view.profile_etx_fname.isEnabled = true
-            view.profile_etx_lname.isEnabled = true
-            view.profile_etx_username.isEnabled = true
-            if (view.profile_btn_submit.visibility != View.VISIBLE) {
-                view.profile_btn_submit.visibility = View.VISIBLE
-                view.profile_btn_submit.startAnimation(slideUp)
-            }
+            enableDisableProfileForm(true)
         }
 
         view.profile_btn_submit.setOnClickListener {
@@ -140,9 +143,27 @@ class ProfileFragment : BaseFragment() {
 
             if (isErrors.first || isErrors.second || isErrors.third) return@setOnClickListener
 
-            // TODO: Update User info now
-            view.profile_btn_submit.visibility = View.GONE
-            view.profile_btn_submit.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_out))
+            loggedInUser?.firstName = fName.toString()
+            loggedInUser?.lastName = lName.toString()
+            loggedInUser?.credentials?.username = username.toString()
+            loggedInUser?.let { user ->
+                homeViewModel.updateUser(user)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(object : DisposableCompletableObserver() {
+                            override fun onComplete() {
+                                enableDisableProfileForm(false)
+                            }
+
+                            override fun onError(e: Throwable) {
+                                (activity as BaseActivity).showMessage(
+                                        getString(R.string.error),
+                                        getString(R.string.error_update_profile)
+                                )
+                            }
+
+                        })
+            }
         }
 
         view.profile_btn_edit_password.setOnClickListener {
@@ -224,13 +245,32 @@ class ProfileFragment : BaseFragment() {
                 }
             }
 
-            if(errors.first && errors.second && errors.third){
+            if (errors.first && errors.second && errors.third) {
                 dialogView.edit_password_btn_submit.text = ""
                 dialogView.edit_password_loader.visibility = View.VISIBLE
             }
         }
 
         return dialogView
+    }
+
+    private fun enableDisableProfileForm(isEnabled: Boolean) {
+        if (isEnabled) {
+            val slideUp = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+            view?.profile_etx_fname?.isEnabled = true
+            view?.profile_etx_lname?.isEnabled = true
+            view?.profile_etx_username?.isEnabled = true
+            if (view?.profile_btn_submit?.visibility != View.VISIBLE) {
+                view?.profile_btn_submit?.visibility = View.VISIBLE
+                view?.profile_btn_submit?.startAnimation(slideUp)
+            }
+        } else {
+            view?.profile_btn_submit?.visibility = View.GONE
+            view?.profile_btn_submit?.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_out))
+            view?.profile_etx_fname?.isEnabled = false
+            view?.profile_etx_lname?.isEnabled = false
+            view?.profile_etx_username?.isEnabled = false
+        }
     }
 
 

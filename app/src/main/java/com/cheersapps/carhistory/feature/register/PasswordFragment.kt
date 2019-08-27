@@ -47,7 +47,6 @@ class PasswordFragment : BaseFragment() {
                     ResourceState.ERROR -> {
                         hideLoader()
                         (activity as BaseActivity).showMessage(
-                            context!!,
                             getString(R.string.error),
                             getString(R.string.error_register)
                         )
@@ -59,7 +58,6 @@ class PasswordFragment : BaseFragment() {
                             dialog.dismiss()
                         }
                         (activity as BaseActivity).showMessage(
-                            context!!,
                             getString(R.string.success),
                             getString(R.string.success_register),
                             dialogListener
