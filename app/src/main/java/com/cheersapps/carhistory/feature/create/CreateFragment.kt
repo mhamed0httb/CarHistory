@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -17,17 +18,18 @@ import com.cheersapps.carhistory.utils.DateUtils
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_create.view.*
 import java.util.*
+import kotlin.concurrent.schedule
 
-class CreateFragment : BaseFragment() {
+class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteraction {
+
 
     private var listener: OnCreateInteractionListener? = null
 
     private val repairTypesAdapter: RepairTypesAdapter by lazy {
-        RepairTypesAdapter()
+        RepairTypesAdapter(this)
     }
     private var date: Date = DateUtils.currentFullDate()
 
@@ -35,9 +37,12 @@ class CreateFragment : BaseFragment() {
         ViewModelProviders.of(this)[HomeViewModel::class.java]
     }
 
+    private var isScrolled = false
+
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_create, container, false)
 
@@ -46,21 +51,29 @@ class CreateFragment : BaseFragment() {
 
         initListTypes(view)
         initClicks(view)
+        view.create_scroll.isSmoothScrollingEnabled = true
     }
 
     private fun initClicks(view: View) {
         view.create_btn_submit.setOnClickListener {
             if (repairTypesAdapter.getSelectedItem() == null) {
-                Toast.makeText(context!!, "choose type", Toast.LENGTH_SHORT).show()
+                view.create_txv_type.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
                 return@setOnClickListener
             }
 
-            Toast.makeText(context!!, "Loading...", Toast.LENGTH_LONG).show()
+            val location = view.create_etx_location.text
+            if(location.isNullOrEmpty()){
+                view.create_etx_layout_location.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                view.create_etx_layout_location.error = getString(R.string.empty_field)
+                return@setOnClickListener
+            }
+            view.create_etx_layout_location.isErrorEnabled = false
 
             val repair = Repair()
             repair.body = view.create_etx_body.text.toString()
             repair.date = this.date.time
             repair.type = repairTypesAdapter.getSelectedItem()?.name
+            repair.location = location.toString()
 
             homeViewModel.insertRepair(repair)
                     .subscribeOn(Schedulers.io())
@@ -117,6 +130,25 @@ class CreateFragment : BaseFragment() {
 
     interface OnCreateInteractionListener {
 
+    }
+
+    /**
+     * OnRepairTypeInteraction implementation
+     */
+    override fun repairTypeSelected(type: RepairType) {
+        if (!isScrolled) {
+            view?.create_etx_layout_location?.visibility = View.VISIBLE
+            view?.create_etx_layout_body?.visibility = View.VISIBLE
+            view?.create_btn_submit?.visibility = View.VISIBLE
+
+            Timer("scroll", false).schedule(500) {
+                activity?.runOnUiThread {
+                    view?.create_scroll?.height?.let {
+                        view?.create_scroll?.smoothScrollTo(0, it)
+                    }
+                }
+            }
+        }
     }
 
     companion object {

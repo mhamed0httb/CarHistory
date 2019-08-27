@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:overScrollMode="never"
@@ -25,6 +26,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/create_txv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/raleway_bold"
+            android:padding="5dp"
+            android:text="@string/choose_type"
+            android:textColor="@color/deepBlue"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/main_guide_top" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/create_rcv_list_types"
             android:layout_width="match_parent"
@@ -36,19 +50,41 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_etx_layout_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
-            android:hint="what have u done ?">
+            android:hint="@string/where"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_etx_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_etx_layout_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:hint="@string/what_have_u_done"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/create_etx_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:minHeight="100dp" />
+                android:minHeight="70dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,7 +102,9 @@
             android:text="@string/add_new"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

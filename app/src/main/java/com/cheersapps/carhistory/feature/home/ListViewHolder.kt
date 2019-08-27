@@ -32,6 +32,10 @@ class ListViewHolder(view: View) : BaseViewHolder<Repair>(view) {
             itemView.item_repair_txv_date.text = DateUtils.timestampToDateString(it)
         }
 
+        item.location?.let {
+            itemView.item_repair_txv_place.text = it
+        }
+
 
 
 

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                   xmlns:tools="http://schemas.android.com/tools"
-                                   android:id="@+id/item_repair_card"
-                                   android:layout_width="match_parent"
-                                   android:layout_height="wrap_content"
-                                   android:layout_margin="10dp"
-                                   android:padding="50dp"
-                                   app:cardCornerRadius="10dp"
-                                   app:cardElevation="0dp"
-                                   app:cardUseCompatPadding="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_repair_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="50dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:id="@+id/item_repair_img"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_cogs"
+            app:srcCompat="@drawable/ic_cogs"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +47,7 @@
             android:layout_width="5dp"
             android:layout_height="5dp"
             android:layout_marginStart="8dp"
-            android:src="@drawable/ic_dot"
+            app:srcCompat="@drawable/ic_dot"
             app:layout_constraintBottom_toBottomOf="@+id/item_repair_txv_date"
             app:layout_constraintStart_toEndOf="@+id/item_repair_txv_date"
             app:layout_constraintTop_toTopOf="@+id/item_repair_txv_date" />
@@ -91,17 +91,16 @@
             app:layout_constraintTop_toTopOf="@+id/item_repair_img" />
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/item_repair_actions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_marginTop="80dp"
         android:background="@color/lightBlue"
         android:orientation="horizontal"
-        android:layout_gravity="bottom"
         android:padding="10dp"
 
         app:layout_constraintBottom_toBottomOf="parent"

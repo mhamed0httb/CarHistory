@@ -20,14 +20,14 @@ class ListAdapter : BaseAdapter<Repair, BaseViewHolder<Repair>>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Repair> {
-        when (viewType) {
+        return when (viewType) {
             0 -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_repair_selected, parent, false)
-                return SelectedListViewHolder((view))
+                SelectedListViewHolder((view))
             }
             else -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_repair, parent, false)
-                return ListViewHolder((view))
+                ListViewHolder((view))
             }
         }
 
@@ -45,6 +45,7 @@ class ListAdapter : BaseAdapter<Repair, BaseViewHolder<Repair>>() {
                 holder.setListener(clickListener)
             }
             is SelectedListViewHolder -> {
+                holder.bindView(adapterItems[position])
                 val clickListener = View.OnClickListener {
                     selectedCard = -1
                     removeItemAt(holder.adapterPosition)

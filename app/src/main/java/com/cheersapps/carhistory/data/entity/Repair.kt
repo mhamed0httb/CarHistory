@@ -26,6 +26,7 @@ class Repair {
 
     var createdAt: Long = DateUtils.currentFullDateTimestamp()
     var type: String? = null
+    var location: String? = null
 
     private fun generateId(): String {
         val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
