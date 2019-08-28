@@ -5,6 +5,7 @@ import com.cheersapps.carhistory.data.entity.Credentials
 import com.cheersapps.carhistory.data.entity.User
 import com.cheersapps.carhistory.data.local.db.AppDatabase
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -31,6 +32,28 @@ class UserLocal @Inject constructor() {
         return Completable.fromAction {
             appDatabase.userDao.update(user)
         }
+    }
+
+    fun updatePassword(user: User, oldPass: String): Single<Boolean> {
+        return Single.create<Boolean> { emitter ->
+            if (isPasswordMatch(user.id, oldPass)) {
+                updateUser(user)
+                        .doOnComplete {
+                            emitter.onSuccess(true)
+                        }
+                        .doOnError { throwable ->
+                            emitter.onError(throwable)
+                        }
+                        .subscribe()
+            } else {
+                emitter.onSuccess(false)
+            }
+        }
+    }
+
+    private fun isPasswordMatch(id: String, oldPass: String): Boolean {
+        val user = appDatabase.userDao.findUserById(id)
+        return user.credentials.password.equals(oldPass)
     }
 
 }

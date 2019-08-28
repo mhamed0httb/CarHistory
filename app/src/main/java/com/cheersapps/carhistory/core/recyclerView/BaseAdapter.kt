@@ -38,6 +38,7 @@ abstract class BaseAdapter<D, V : BaseViewHolder<D>> : androidx.recyclerview.wid
             this.adapterItems.addAll(items)
         }
         notifyDataSetChanged()
+        isAdapterEmpty.postValue(itemCount == 0)
     }
 
     fun changeItem(item: D) {

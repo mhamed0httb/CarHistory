@@ -24,6 +24,9 @@ interface UserDao {
     @Query("SELECT * FROM User WHERE id =:userId")
     fun findById(userId: String): LiveData<User>
 
+    @Query("SELECT * FROM User WHERE id =:userId LIMIT 1")
+    fun findUserById(userId: String): User
+
     @Query("SELECT * FROM User")
     fun findAll(): LiveData<List<User>>
 

@@ -18,6 +18,7 @@
     <string name="info_logout">Do you really want to leave this awesome app? (hope you just want to switch accounts)</string>
     <string name="error_register">Error while creating your account, please try again</string>
     <string name="error_update_profile">Error while updating your profile, please try again</string>
+    <string name="error_update_password">Error while updating your password, please try again</string>
     <string name="success_register">Your account has been created, please log in.</string>
     <string name="invalid_credentials">Invalid credentials</string>
     <string name="add_new">Add New</string>
@@ -137,6 +138,12 @@ If you have any difficulty in creating the app you can have a look into Develop 
     <string name="register_password_title">Create a new account \n \n Enter password</string>
     <string name="proceed">Proceed</string>
     <string name="already_have_account">Already have an account?  \nSign in now!</string>
+    <string name="password_update_success">Your password is updated successfully</string>
+    <string name="password_update_no_match">Wrong password, please enter your current password.</string>
+    <string name="manage_places">Manage places</string>
+    <string name="mileage">Mileage</string>
+    <string name="frensh">Frensh</string>
+    <string name="english">English</string>
 
 
 </resources>

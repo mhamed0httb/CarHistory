@@ -2,16 +2,16 @@ package com.cheersapps.carhistory.feature.profile
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
+import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
 import com.cheersapps.carhistory.core.fragment.BaseFragment
 import com.cheersapps.carhistory.data.entity.User
 import com.cheersapps.carhistory.feature.home.HomeViewModel
@@ -19,11 +19,12 @@ import com.cheersapps.carhistory.usecase.profile.FieldsValidator
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableCompletableObserver
+import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.dialog_edit_password.view.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
+import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
-import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
 
 
 class ProfileFragment : BaseFragment() {
@@ -44,9 +45,13 @@ class ProfileFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //initTextWatcher(view)
         initClicks(view)
         initObservers(view)
+        initLanguage(view)
+    }
+
+    private fun initLanguage(view: View) {
+
     }
 
     private fun initObservers(view: View) {
@@ -64,28 +69,6 @@ class ProfileFragment : BaseFragment() {
 
                 this@ProfileFragment.loggedInUser = it
             }
-        })
-    }
-
-    private fun initTextWatcher(view: View) {
-        view.profile_etx_username.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                val pattern = Pattern.compile("[^\\s]+")
-                val matcher = pattern.matcher(s.toString())
-                if (!matcher.matches()) {
-                    view.profile_txv_error_username.text = getString(R.string.no_spaces)
-                    view.profile_txv_error_username.visibility = View.VISIBLE
-                } else {
-                    view.profile_txv_error_username.visibility = View.GONE
-                }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
         })
     }
 
@@ -176,6 +159,18 @@ class ProfileFragment : BaseFragment() {
             dialog.show()
 
         }
+
+        view.profile_txv_manage_locations.setOnClickListener {
+            listener?.manageLocations()
+        }
+
+        view.profile_txv_fr.setOnClickListener {
+            toggleLanguageView(false)
+        }
+
+        view.profile_txv_en.setOnClickListener {
+            toggleLanguageView(true)
+        }
     }
 
     private fun prepareEditPasswordView(dialogView: View): View {
@@ -193,7 +188,6 @@ class ProfileFragment : BaseFragment() {
                     dialogView.edit_password_txv_error_old_password.visibility = View.VISIBLE
                     dialogView.edit_password_etx_old_password.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
                     errors = errors.copy(first = false)
-
                 }
                 FieldsValidator.NOT_EMPTY -> {
                     dialogView.edit_password_txv_error_old_password.visibility = View.GONE
@@ -246,8 +240,47 @@ class ProfileFragment : BaseFragment() {
             }
 
             if (errors.first && errors.second && errors.third) {
-                dialogView.edit_password_btn_submit.text = ""
-                dialogView.edit_password_loader.visibility = View.VISIBLE
+                loggedInUser?.credentials?.password = newPass
+                loggedInUser?.let { user ->
+                    homeViewModel.updateUserPassword(user, oldPass)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnSubscribe {
+                                dialogView.edit_password_btn_submit.text = ""
+                                dialogView.edit_password_loader.visibility = View.VISIBLE
+                            }
+                            .delay(3, TimeUnit.SECONDS)
+                            .subscribe(object : DisposableSingleObserver<Boolean>() {
+                                override fun onSuccess(response: Boolean) {
+                                    if (response) {
+                                        (this@ProfileFragment.activity as BaseActivity).showMessage(
+                                                getString(R.string.success),
+                                                getString(R.string.password_update_success)
+                                        )
+                                    } else {
+                                        (this@ProfileFragment.activity as BaseActivity).showMessage(
+                                                getString(R.string.error),
+                                                getString(R.string.password_update_no_match)
+                                        )
+                                    }
+
+                                    dialogView.edit_password_btn_submit.text = getString(R.string.edit_password)
+                                    dialogView.edit_password_loader.visibility = View.GONE
+                                }
+
+
+                                override fun onError(e: Throwable) {
+                                    (this@ProfileFragment.activity as BaseActivity).showMessage(
+                                            getString(R.string.error),
+                                            getString(R.string.error_update_password)
+                                    )
+
+                                    dialogView.edit_password_btn_submit.text = getString(R.string.edit_password)
+                                    dialogView.edit_password_loader.visibility = View.GONE
+                                }
+
+                            })
+                }
             }
         }
 
@@ -273,6 +306,22 @@ class ProfileFragment : BaseFragment() {
         }
     }
 
+    private fun toggleLanguageView(isEnglish: Boolean) {
+        if (isEnglish) {
+            view?.profile_txv_fr?.setBackgroundResource(R.drawable.bg_box_language)
+            view?.profile_txv_en?.setBackgroundResource(R.drawable.bg_box_language_selected)
+
+            view?.profile_txv_fr?.setTextColor(ContextCompat.getColor(context!!, R.color.deepBlue))
+            view?.profile_txv_en?.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+        } else {
+            view?.profile_txv_fr?.setBackgroundResource(R.drawable.bg_box_language_selected)
+            view?.profile_txv_en?.setBackgroundResource(R.drawable.bg_box_language)
+
+            view?.profile_txv_fr?.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            view?.profile_txv_en?.setTextColor(ContextCompat.getColor(context!!, R.color.deepBlue))
+        }
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -291,6 +340,7 @@ class ProfileFragment : BaseFragment() {
 
     interface OnProfileInteractionListener {
         fun logout()
+        fun manageLocations()
     }
 
     companion object {

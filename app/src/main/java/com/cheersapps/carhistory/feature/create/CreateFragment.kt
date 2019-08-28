@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.fragment.BaseFragment
+import com.cheersapps.carhistory.data.entity.Location
 import com.cheersapps.carhistory.data.entity.Repair
 import com.cheersapps.carhistory.data.entity.RepairType
 import com.cheersapps.carhistory.feature.home.HomeViewModel
@@ -49,10 +51,21 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initObservers(view)
         initListTypes(view)
         initClicks(view)
         view.create_scroll.isSmoothScrollingEnabled = true
     }
+
+    private fun initObservers(view: View) {
+        homeViewModel.getLocations().observe(this, androidx.lifecycle.Observer { nullable ->
+            nullable?.let { locations ->
+                val adapter: ArrayAdapter<Location> = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, locations)
+                view.create_spinner_location.adapter = adapter
+            }
+        })
+    }
+
 
     private fun initClicks(view: View) {
         view.create_btn_submit.setOnClickListener {
@@ -61,8 +74,20 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
                 return@setOnClickListener
             }
 
-            val location = view.create_etx_location.text
-            if(location.isNullOrEmpty()){
+            //val location = view.create_etx_location.text
+            val location = (view.create_spinner_location.selectedItem as Location?)?.name
+            val mileage = view.create_etx_location.text
+            if (location.isNullOrEmpty()) {
+                view.create_txv_where.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+               /*
+                view.create_etx_layout_location.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                view.create_etx_layout_location.error = getString(R.string.empty_field)
+                */
+                return@setOnClickListener
+            }
+
+
+            if(mileage.isNullOrEmpty()){
                 view.create_etx_layout_location.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
                 view.create_etx_layout_location.error = getString(R.string.empty_field)
                 return@setOnClickListener
@@ -74,6 +99,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
             repair.date = this.date.time
             repair.type = repairTypesAdapter.getSelectedItem()?.name
             repair.location = location.toString()
+            repair.mileage = mileage.toString().toLong()
 
             homeViewModel.insertRepair(repair)
                     .subscribeOn(Schedulers.io())
@@ -137,6 +163,8 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
      */
     override fun repairTypeSelected(type: RepairType) {
         if (!isScrolled) {
+            view?.create_txv_where?.visibility = View.VISIBLE
+            view?.create_spinner_location?.visibility = View.VISIBLE
             view?.create_etx_layout_location?.visibility = View.VISIBLE
             view?.create_etx_layout_body?.visibility = View.VISIBLE
             view?.create_btn_submit?.visibility = View.VISIBLE

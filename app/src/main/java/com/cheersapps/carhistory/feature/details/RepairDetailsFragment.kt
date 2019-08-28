@@ -58,6 +58,13 @@ class RepairDetailsFragment : BaseFragment() {
             view.details_txv_date.text = DateUtils.timestampToDateString(it)
         }
 
+        repair?.mileage?.let {
+            val mileageBuilder = StringBuilder()
+            mileageBuilder.append(it)
+            mileageBuilder.append(" km")
+            view.details_txv_mileage.text = mileageBuilder.toString()
+        }
+
         val body = repair?.body
         if (body.isNullOrEmpty()) {
             view.details_txv_body.visibility = View.GONE

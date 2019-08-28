@@ -63,10 +63,20 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRcvRepairs(view)
+        initObservers(view)
+    }
+
+    private fun initObservers(view: View) {
         homeViewModel.getRepairs().observe(this, Observer {
             if (!isObserved) {
                 listAdapter.changeAll(it)
                 isObserved = true
+            }
+        })
+
+        listAdapter.observeAdapterCount().observe(this, Observer { nullable ->
+            nullable?.let { isEmpty ->
+                toggleEmptyView(isEmpty)
             }
         })
     }
@@ -74,6 +84,16 @@ class HomeFragment : BaseFragment() {
     private fun initRcvRepairs(view: View) {
         view.home_rcv_repairs.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         view.home_rcv_repairs.adapter = listAdapter
+    }
+
+    private fun toggleEmptyView(isEmpty: Boolean) {
+        if (isEmpty) {
+            view?.home_rcv_repairs?.visibility = View.GONE
+            view?.home_animation_empty?.visibility = View.VISIBLE
+        } else {
+            view?.home_rcv_repairs?.visibility = View.VISIBLE
+            view?.home_animation_empty?.visibility = View.GONE
+        }
     }
 
 

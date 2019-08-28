@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-
     android:overScrollMode="never"
     tools:context=".feature.profile.ProfileFragment">
 
@@ -64,13 +63,13 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/raleway_bold"
                     android:gravity="center"
-                    tools:text="Mhamed Hattab"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/profile_img_profile" />
+                    app:layout_constraintTop_toBottomOf="@+id/profile_img_profile"
+                    tools:text="Mhamed Hattab" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -234,14 +233,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="20dp"
             android:background="@drawable/bg_round_button_red"
             android:fontFamily="@font/raleway_light"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/profile_etx_username"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/profile_etx_username"
@@ -250,6 +247,68 @@
             app:srcCompat="@drawable/ic_key"
             tools:visibility="visible" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profile_txv_manage_locations"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_box"
+            android:drawableStart="@drawable/ic_location"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/raleway_bolditalic"
+            android:gravity="center|start"
+            android:padding="10dp"
+            android:text="@string/manage_places"
+            android:textColor="@color/deepBlue"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/profile_guide_fab"
+            app:layout_constraintStart_toStartOf="@+id/profile_guide_fab_logout"
+            app:layout_constraintTop_toBottomOf="@+id/profile_btn_edit_password" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profile_txv_fr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_box_language"
+            android:drawableStart="@drawable/ic_flag_fr"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/raleway_bolditalic"
+            android:gravity="center|start"
+            android:padding="10dp"
+            android:text="@string/frensh"
+            android:textColor="@color/deepBlue"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/profile_guide_fab"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="@+id/profile_guide_fab_logout"
+            app:layout_constraintTop_toBottomOf="@+id/profile_txv_manage_locations"
+            app:layout_constraintWidth_percent=".3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profile_txv_en"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_box_language_selected"
+            android:drawableStart="@drawable/ic_flag_en"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/raleway_bolditalic"
+            android:gravity="center|start"
+            android:padding="10dp"
+            android:text="@string/english"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/profile_guide_fab"
+            app:layout_constraintHorizontal_bias=".9"
+            app:layout_constraintStart_toStartOf="@+id/profile_guide_fab_logout"
+            app:layout_constraintTop_toBottomOf="@+id/profile_txv_manage_locations"
+            app:layout_constraintWidth_percent=".3" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/profile_guide_fab"

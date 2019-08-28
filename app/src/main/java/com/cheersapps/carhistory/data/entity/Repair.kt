@@ -24,6 +24,8 @@ class Repair: Serializable {
         return null
     }
 
+    var mileage: Long? = null
+
 
     var createdAt: Long = DateUtils.currentFullDateTimestamp()
     var type: String? = null

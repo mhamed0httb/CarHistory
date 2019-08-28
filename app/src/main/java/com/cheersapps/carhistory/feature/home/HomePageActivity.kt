@@ -19,6 +19,7 @@ import com.cheersapps.carhistory.data.entity.RepairType
 import com.cheersapps.carhistory.feature.create.CreateFragment
 import com.cheersapps.carhistory.feature.details.RepairDetailsFragment
 import com.cheersapps.carhistory.feature.login.LoginActivity
+import com.cheersapps.carhistory.feature.profile.ManageLocationsFragment
 import com.cheersapps.carhistory.feature.profile.ProfileFragment
 import com.cheersapps.carhistory.utils.NavigationUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -136,11 +137,16 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
             return
         }
 
-        if (supportFragmentManager.findFragmentById(R.id.home_container) is RepairDetailsFragment){
-            home_toolbar_txv_title.text = getString(R.string.home)
-            toggleNavigation(false)
+        when(supportFragmentManager.findFragmentById(R.id.home_container) ){
+            is RepairDetailsFragment-> {
+                home_toolbar_txv_title.text = getString(R.string.home)
+                toggleNavigation(false)
+            }
+            is ManageLocationsFragment -> {
+                home_toolbar_txv_title.text = getString(R.string.profile)
+                toggleNavigation(false)
+            }
         }
-
 
         super.onBackPressed()
     }
@@ -158,6 +164,19 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
                 getString(R.string.logout),
                 getString(R.string.info_logout),
                 dialogListener,
+                true
+        )
+    }
+
+    override fun manageLocations() {
+        home_toolbar_txv_title.text = getString(R.string.manage_places)
+
+        toggleNavigation(true)
+
+        replaceFragmentSafely(
+                R.id.home_container,
+                ManageLocationsFragment.newInstance(),
+                ManageLocationsFragment::class.java.simpleName,
                 true
         )
     }

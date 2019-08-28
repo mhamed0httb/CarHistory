@@ -143,6 +143,34 @@
         tools:text="date" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_txv_mileage_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/raleway_bold"
+        android:text="@string/mileage"
+        android:textColor="@color/deepBlue"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/details_guide_start"
+        app:layout_constraintTop_toBottomOf="@+id/details_txv_date_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_txv_mileage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/raleway_light"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/deepBlue"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/details_txv_mileage_label"
+        app:layout_constraintEnd_toStartOf="@+id/details_guide_end"
+        app:layout_constraintStart_toEndOf="@+id/details_txv_mileage_label"
+        app:layout_constraintTop_toTopOf="@+id/details_txv_mileage_label"
+        tools:text="Mileage" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/details_txv_body_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -154,7 +182,7 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/details_guide_end"
         app:layout_constraintStart_toStartOf="@+id/details_guide_start"
-        app:layout_constraintTop_toBottomOf="@+id/details_txv_date" />
+        app:layout_constraintTop_toBottomOf="@+id/details_txv_mileage_label" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/details_txv_body"
