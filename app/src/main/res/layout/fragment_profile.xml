@@ -56,12 +56,15 @@
 
                 <TextView
                     android:id="@+id/profile_txv_logged_user_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/raleway_bold"
-                    android:text="Mhamed Hattab"
+                    android:gravity="center"
+                    tools:text="Mhamed Hattab"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -79,11 +82,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fabSize="mini"
-            app:layout_constraintVertical_bias=".8"
             app:layout_constraintBottom_toBottomOf="@+id/profile_card"
             app:layout_constraintEnd_toEndOf="@+id/profile_guide_fab"
             app:layout_constraintStart_toStartOf="@+id/profile_guide_fab"
             app:layout_constraintTop_toTopOf="@+id/profile_card"
+            app:layout_constraintVertical_bias=".8"
             app:srcCompat="@drawable/ic_edit" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -91,11 +94,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fabSize="mini"
-            app:layout_constraintVertical_bias=".5"
             app:layout_constraintBottom_toBottomOf="@+id/profile_card"
             app:layout_constraintEnd_toEndOf="@+id/profile_guide_fab_logout"
             app:layout_constraintStart_toStartOf="@+id/profile_guide_fab_logout"
             app:layout_constraintTop_toTopOf="@+id/profile_card"
+            app:layout_constraintVertical_bias=".5"
             app:srcCompat="@drawable/ic_logout" />
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -106,7 +109,7 @@
             android:background="@drawable/bg_round_etx"
             android:enabled="false"
             android:fontFamily="@font/raleway_medium"
-            android:hint="First name"
+            android:hint="@string/first_name"
             android:inputType="text"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +140,7 @@
             android:background="@drawable/bg_round_etx"
             android:enabled="false"
             android:fontFamily="@font/raleway_medium"
-            android:hint="Last name"
+            android:hint="@string/last_name"
             android:inputType="text"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -168,7 +171,7 @@
             android:background="@drawable/bg_round_etx"
             android:enabled="false"
             android:fontFamily="@font/raleway_medium"
-            android:hint="Username"
+            android:hint="@string/username"
             android:inputType="text"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -204,12 +207,12 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             android:visibility="gone"
-            tools:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/profile_etx_username"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/profile_etx_username"
             app:layout_constraintTop_toBottomOf="@+id/profile_txv_error_username"
-            app:layout_constraintWidth_percent=".5" />
+            app:layout_constraintWidth_percent=".5"
+            tools:visibility="visible" />
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/profile_loader"
@@ -231,20 +234,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/bg_round_button_red"
             android:fontFamily="@font/raleway_light"
-            app:srcCompat="@drawable/ic_key"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/profile_etx_username"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/profile_etx_username"
             app:layout_constraintTop_toBottomOf="@+id/profile_txv_error_username"
             app:layout_constraintWidth_percent=".2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="20dp"
+            app:srcCompat="@drawable/ic_key"
             tools:visibility="visible" />
 
 

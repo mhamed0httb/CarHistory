@@ -16,7 +16,8 @@
         <activity android:name=".feature.onBoarding.OnBoardingActivity"/>
         <activity
             android:name=".feature.home.HomePageActivity"
-            android:label="@string/title_activity_home_page" />
+            android:label="@string/title_activity_home_page"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".feature.home.HomeActivity"
             android:label="@string/title_activity_home" />

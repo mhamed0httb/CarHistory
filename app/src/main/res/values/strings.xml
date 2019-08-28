@@ -131,6 +131,12 @@ If you have any difficulty in creating the app you can have a look into Develop 
     <string name="created_at">Created at:</string>
     <string name="location">Location:</string>
     <string name="date">Date:</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="register_info_title">Create a new account \n \n Enter your info</string>
+    <string name="register_password_title">Create a new account \n \n Enter password</string>
+    <string name="proceed">Proceed</string>
+    <string name="already_have_account">Already have an account?  \nSign in now!</string>
 
 
 </resources>
