@@ -1,9 +1,11 @@
 package com.cheersapps.carhistory.feature.details
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.transition.TransitionInflater
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.common.constant.Constants.ARG_REPAIR
 import com.cheersapps.carhistory.core.fragment.BaseFragment
@@ -18,6 +20,10 @@ class RepairDetailsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        }
 
         arguments?.let {
             repair = it.getSerializable(ARG_REPAIR) as Repair

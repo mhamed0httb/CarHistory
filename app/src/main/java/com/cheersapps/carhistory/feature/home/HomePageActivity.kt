@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProviders
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
@@ -191,21 +192,26 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
 
         toggleNavigation(true)
 
+       /*
         replaceFragmentSafely(
                 R.id.home_container,
                 RepairDetailsFragment.newInstance(repair),
                 RepairDetailsFragment::class.java.simpleName,
                 true
         )
+        */
 
-        /*
-         supportFragmentManager
-                 .beginTransaction()
-                 .addSharedElement(sharedView, "transition_img_second")
-                 .replace(R.id.home_container, RepairDetailsFragment.newInstance(repair), RepairDetailsFragment::class.java.simpleName)
-                 .addToBackStack(RepairDetailsFragment::class.java.simpleName)
-                 .commit()
-         */
+
+        val transitionName = ViewCompat.getTransitionName(sharedView)
+        transitionName?.let {
+            supportFragmentManager
+                    .beginTransaction()
+                    .addSharedElement(sharedView, it)
+                    .addToBackStack(RepairDetailsFragment::class.java.simpleName)
+                    .replace(R.id.home_container, RepairDetailsFragment.newInstance(repair), RepairDetailsFragment::class.java.simpleName)
+                    .commit()
+        }
+
     }
 
 
