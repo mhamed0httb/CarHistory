@@ -28,6 +28,14 @@ class SelectedListViewHolder(view: View) : BaseViewHolder<Repair>(view) {
             itemView.item_repair_txv_place.text = it
         }
 
+
+        item.mileage?.let {
+            val mileageBuilder = StringBuilder()
+            mileageBuilder.append(it)
+            mileageBuilder.append(" Km")
+            itemView.item_repair_txv_duration.text = mileageBuilder.toString()
+        }
+
     }
 
     fun setDeleteListener(clickListener: View.OnClickListener) {

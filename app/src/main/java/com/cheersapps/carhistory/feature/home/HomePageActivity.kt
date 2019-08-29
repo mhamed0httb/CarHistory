@@ -26,7 +26,10 @@ import com.cheersapps.carhistory.utils.NavigationUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page.*
 
-class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionListener, CreateFragment.OnCreateInteractionListener, HomeFragment.OnHomeInteractionListener {
+class HomePageActivity : BaseActivity(),
+        ProfileFragment.OnProfileInteractionListener,
+        CreateFragment.OnCreateInteractionListener,
+        HomeFragment.OnHomeInteractionListener {
 
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this)[HomeViewModel::class.java]
@@ -104,8 +107,8 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.home, menu)
-
+       /*
+       menuInflater.inflate(R.menu.home, menu)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView?
         searchView!!.setSearchableInfo(searchManager.getSearchableInfo(componentName))
@@ -125,24 +128,30 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
                 return false
             }
         })
+        */
 
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        /*
         val id = item?.itemId
         return if (id == R.id.action_search)
             true
         else
             super.onOptionsItemSelected(item)
+         */
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
+       /*
         // close search view on back button pressed
         if (!searchView!!.isIconified) {
             searchView!!.isIconified = true
             return
         }
+        */
 
         when(supportFragmentManager.findFragmentById(R.id.home_container) ){
             is RepairDetailsFragment-> {
@@ -213,8 +222,8 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
             supportFragmentManager
                     .beginTransaction()
                     .addSharedElement(sharedView, it)
-                    .addToBackStack(RepairDetailsFragment::class.java.simpleName)
                     .replace(R.id.home_container, RepairDetailsFragment.newInstance(repair), RepairDetailsFragment::class.java.simpleName)
+                    .addToBackStack(RepairDetailsFragment::class.java.simpleName)
                     .commit()
         }
 

@@ -14,7 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/deepRed"
         android:gravity="center"
-        app:contentInsetEnd="0dp"
+        app:contentInsetEnd="24dp"
         app:contentInsetEndWithActions="0dp"
         app:contentInsetStart="24dp"
         app:contentInsetStartWithNavigation="0dp"

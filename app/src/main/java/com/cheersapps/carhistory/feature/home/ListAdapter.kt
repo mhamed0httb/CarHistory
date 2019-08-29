@@ -9,7 +9,9 @@ import com.cheersapps.carhistory.core.recyclerView.BaseViewHolder
 import com.cheersapps.carhistory.data.entity.Repair
 import kotlinx.android.synthetic.main.item_repair_selected.view.*
 
-class ListAdapter(private val listener: HomeFragment.OnHomeInteractionListener?, val deleteListener: (item: Repair, position: Int) -> Unit) : BaseAdapter<Repair, BaseViewHolder<Repair>>() {
+class ListAdapter(private val listener: HomeFragment.OnHomeInteractionListener?,
+                  val deleteListener: (item: Repair, position: Int) -> Unit)
+    : BaseAdapter<Repair, BaseViewHolder<Repair>>() {
 
     private var selectedCard: Int = -1
     private var previousSelectedCard: Int = -1
@@ -45,7 +47,6 @@ class ListAdapter(private val listener: HomeFragment.OnHomeInteractionListener?,
             is SelectedListViewHolder -> {
                 val clickListener = View.OnClickListener {
                     selectedCard = -1
-                    //removeItemAt(holder.adapterPosition)
 
                     deleteListener(adapterItems[position], position)
                 }
