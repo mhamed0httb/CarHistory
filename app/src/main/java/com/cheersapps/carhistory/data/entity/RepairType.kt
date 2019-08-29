@@ -3,6 +3,6 @@ package com.cheersapps.carhistory.data.entity
 import com.cheersapps.carhistory.R
 
 
-enum class RepairType(val title: String, val icon: Int) {
-    OIL_CHANGE("Oil Change", R.drawable.ic_oil), MAINTENANCE("Maintenance", R.drawable.ic_cogs)
+enum class RepairType(val title: Int, val icon: Int) {
+    OIL_CHANGE(R.string.oil_change, R.drawable.ic_oil), MAINTENANCE(R.string.maintenance, R.drawable.ic_cogs)
 }

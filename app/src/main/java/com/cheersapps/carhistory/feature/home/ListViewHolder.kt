@@ -25,7 +25,7 @@ class ListViewHolder(view: View) : BaseViewHolder<Repair>(view) {
         }
 
         item.type?.let {
-            itemView.item_repair_txv_title.text = RepairType.valueOf(it).title
+            itemView.item_repair_txv_title.text = itemView.resources.getString(RepairType.valueOf(it).title)
         }
 
         item.date?.let {

@@ -53,7 +53,7 @@ class RepairDetailsFragment : BaseFragment() {
         }
 
         repair?.type?.let {
-            view.details_txv_type.text = RepairType.valueOf(it).title
+            view.details_txv_type.text = getString(RepairType.valueOf(it).title)
         }
 
         repair?.location?.let {

@@ -74,25 +74,36 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
                 return@setOnClickListener
             }
 
-            //val location = view.create_etx_location.text
             val location = (view.create_spinner_location.selectedItem as Location?)?.name
-            val mileage = view.create_etx_location.text
+            val mileage = view.create_etx_mileage.text
+            val price = view.create_etx_price.text
             if (location.isNullOrEmpty()) {
                 view.create_txv_where.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
-               /*
-                view.create_etx_layout_location.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
-                view.create_etx_layout_location.error = getString(R.string.empty_field)
-                */
                 return@setOnClickListener
             }
 
 
-            if(mileage.isNullOrEmpty()){
-                view.create_etx_layout_location.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
-                view.create_etx_layout_location.error = getString(R.string.empty_field)
+            if (mileage.isNullOrEmpty()) {
+                view.create_etx_layout_mileage.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                view.create_etx_layout_mileage.error = getString(R.string.empty_field)
                 return@setOnClickListener
             }
-            view.create_etx_layout_location.isErrorEnabled = false
+            view.create_etx_layout_mileage.isErrorEnabled = false
+
+            if (price.isNullOrEmpty()) {
+                view.create_etx_layout_price.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                view.create_etx_layout_price.error = getString(R.string.empty_field)
+                return@setOnClickListener
+            }
+            view.create_etx_layout_price.isErrorEnabled = false
+
+            val priceDouble = price.toString().toDoubleOrNull()
+            if(priceDouble == null) {
+                view.create_etx_layout_price.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                view.create_etx_layout_price.error = getString(R.string.invalid_price)
+                return@setOnClickListener
+            }
+            view.create_etx_layout_price.isErrorEnabled = false
 
             val repair = Repair()
             repair.body = view.create_etx_body.text.toString()
@@ -165,7 +176,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
         if (!isScrolled) {
             view?.create_txv_where?.visibility = View.VISIBLE
             view?.create_spinner_location?.visibility = View.VISIBLE
-            view?.create_etx_layout_location?.visibility = View.VISIBLE
+            view?.create_etx_layout_mileage?.visibility = View.VISIBLE
             view?.create_etx_layout_body?.visibility = View.VISIBLE
             view?.create_btn_submit?.visibility = View.VISIBLE
 

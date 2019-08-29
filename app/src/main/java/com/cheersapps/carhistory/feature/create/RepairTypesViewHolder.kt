@@ -10,6 +10,6 @@ class RepairTypesViewHolder(view: View): BaseViewHolder<RepairType>(view) {
 
     override fun bindView(item: RepairType) {
         itemView.item_types_img.setImageResource(item.icon)
-        itemView.item_types_txv_title.text = item.title
+        itemView.item_types_txv_title.text = itemView.resources.getString(item.title)
     }
 }

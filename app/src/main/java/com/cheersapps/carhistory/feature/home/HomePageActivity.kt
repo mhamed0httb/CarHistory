@@ -193,7 +193,7 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
      */
     override fun detailsRepair(repair: Repair, sharedView: View) {
         repair.type?.let {
-            home_toolbar_txv_title.text = RepairType.valueOf(it).title
+            home_toolbar_txv_title.text = getString(RepairType.valueOf(it).title)
         }
 
         toggleNavigation(true)

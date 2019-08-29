@@ -68,8 +68,12 @@
     <string name="password_update_no_match">Wrong password, please enter your current password.</string>
     <string name="manage_places">Manage places</string>
     <string name="mileage">Mileage</string>
-    <string name="frensh">Frensh</string>
+    <string name="frensh">French</string>
     <string name="english">English</string>
+    <string name="price_paid">Price paid (DT)</string>
+    <string name="invalid_price">Invalid price value</string>
+    <string name="maintenance">Maintenance</string>
+    <string name="oil_change">Oil Change</string>
 
 
 </resources>
