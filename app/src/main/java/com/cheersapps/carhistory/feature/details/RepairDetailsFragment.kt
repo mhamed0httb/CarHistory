@@ -12,7 +12,7 @@ import com.cheersapps.carhistory.core.fragment.BaseFragment
 import com.cheersapps.carhistory.data.entity.Repair
 import com.cheersapps.carhistory.data.entity.RepairType
 import com.cheersapps.carhistory.utils.DateUtils
-import kotlinx.android.synthetic.main.fragment_repair_details.view.*
+import kotlinx.android.synthetic.main.fragment_repair_details_2.view.*
 
 class RepairDetailsFragment : BaseFragment() {
 
@@ -34,22 +34,15 @@ class RepairDetailsFragment : BaseFragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_repair_details, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_repair_details_2, container, false)
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        repair?.createdAt?.let {
-            val builder = StringBuilder()
-            builder.append(DateUtils.timestampToDateString(it))
-            builder.append(" ")
-            builder.append(DateUtils.timestampToTimeString(it))
-            view.details_txv_created_at.text = builder.toString()
-        }
-
         repair?.icon?.let {
-            view.details_img_icon.setImageResource(it)
+            view.details_img_type.setImageResource(it)
         }
 
         repair?.type?.let {
@@ -67,8 +60,15 @@ class RepairDetailsFragment : BaseFragment() {
         repair?.mileage?.let {
             val mileageBuilder = StringBuilder()
             mileageBuilder.append(it)
-            mileageBuilder.append(" km")
+            mileageBuilder.append(" KM")
             view.details_txv_mileage.text = mileageBuilder.toString()
+        }
+
+        repair?.amount?.let {
+            val amountBuilder = StringBuilder()
+            amountBuilder.append(it)
+            amountBuilder.append(" DT")
+            view.details_txv_price.text = amountBuilder.toString()
         }
 
         val body = repair?.body
@@ -81,6 +81,7 @@ class RepairDetailsFragment : BaseFragment() {
             view.details_animation_empty.visibility = View.GONE
         }
     }
+
 
     companion object {
 

@@ -30,6 +30,7 @@ class Repair: Serializable {
     var createdAt: Long = DateUtils.currentFullDateTimestamp()
     var type: String? = null
     var location: String? = null
+    var amount: Double? = null
 
     private fun generateId(): String {
         val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"

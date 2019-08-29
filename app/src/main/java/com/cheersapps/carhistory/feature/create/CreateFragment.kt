@@ -111,6 +111,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
             repair.type = repairTypesAdapter.getSelectedItem()?.name
             repair.location = location.toString()
             repair.mileage = mileage.toString().toLong()
+            repair.amount = priceDouble
 
             homeViewModel.insertRepair(repair)
                     .subscribeOn(Schedulers.io())
@@ -179,6 +180,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
             view?.create_etx_layout_mileage?.visibility = View.VISIBLE
             view?.create_etx_layout_body?.visibility = View.VISIBLE
             view?.create_btn_submit?.visibility = View.VISIBLE
+            view?.create_etx_layout_price?.visibility = View.VISIBLE
 
             Timer("scroll", false).schedule(500) {
                 activity?.runOnUiThread {
@@ -187,6 +189,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
                     }
                 }
             }
+            isScrolled = true
         }
     }
 
