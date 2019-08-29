@@ -37,7 +37,8 @@
                 app:layout_constraintStart_toStartOf="@+id/details_guide_card_center"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".15"
-                app:srcCompat="@drawable/ic_cogs" />
+                app:srcCompat="@drawable/ic_cogs"
+                tools:targetApi="lollipop" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/details_txv_type"

@@ -74,6 +74,8 @@
     <string name="invalid_price">Invalid price value</string>
     <string name="maintenance">Maintenance</string>
     <string name="oil_change">Oil Change</string>
+    <string name="create_repair_success">Data saved successfully.</string>
+    <string name="create_repair_error">Error while saving data, please try again.</string>
 
 
 </resources>

@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.cheersapps.carhistory.R
+import com.cheersapps.carhistory.core.activity.BaseActivity
+import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
 import com.cheersapps.carhistory.core.fragment.BaseFragment
 import com.cheersapps.carhistory.data.entity.Location
 import com.cheersapps.carhistory.data.entity.Repair
@@ -118,14 +120,22 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(object : CompletableObserver {
                         override fun onComplete() {
-                            Toast.makeText(context!!, "Done", Toast.LENGTH_SHORT).show()
+                            (this@CreateFragment.activity as BaseActivity).showMessage(
+                                    getString(R.string.success),
+                                    getString(R.string.create_repair_success)
+                            )
+                            toggleForm()
                         }
 
                         override fun onSubscribe(d: Disposable) {
                         }
 
                         override fun onError(e: Throwable) {
-                            Toast.makeText(context!!, "Error", Toast.LENGTH_SHORT).show()
+                            (this@CreateFragment.activity as BaseActivity).showMessage(
+                                    getString(R.string.error),
+                                    getString(R.string.create_repair_error)
+                            )
+
                         }
 
                     })
@@ -151,6 +161,43 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
         repairTypesAdapter.changeAll(RepairType.values().toList())
     }
 
+    private fun toggleForm() {
+        if(isScrolled){
+            view?.create_txv_where?.visibility = View.GONE
+            view?.create_spinner_location?.visibility = View.GONE
+            view?.create_etx_layout_mileage?.visibility = View.GONE
+            view?.create_etx_layout_body?.visibility = View.GONE
+            view?.create_btn_submit?.visibility = View.GONE
+            view?.create_etx_layout_price?.visibility = View.GONE
+
+            resetInputs()
+            repairTypesAdapter.resetSelectedItem()
+            isScrolled = false
+        } else {
+            view?.create_txv_where?.visibility = View.VISIBLE
+            view?.create_spinner_location?.visibility = View.VISIBLE
+            view?.create_etx_layout_mileage?.visibility = View.VISIBLE
+            view?.create_etx_layout_body?.visibility = View.VISIBLE
+            view?.create_btn_submit?.visibility = View.VISIBLE
+            view?.create_etx_layout_price?.visibility = View.VISIBLE
+
+            Timer("scroll", false).schedule(500) {
+                activity?.runOnUiThread {
+                    view?.create_scroll?.height?.let {
+                        view?.create_scroll?.smoothScrollTo(0, it)
+                    }
+                }
+            }
+            isScrolled = true
+        }
+    }
+
+    private fun resetInputs(){
+        view?.create_etx_mileage?.text?.clear()
+        view?.create_etx_price?.text?.clear()
+        view?.create_etx_body?.text?.clear()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnCreateInteractionListener) {
@@ -174,6 +221,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
      * OnRepairTypeInteraction implementation
      */
     override fun repairTypeSelected(type: RepairType) {
+        /*
         if (!isScrolled) {
             view?.create_txv_where?.visibility = View.VISIBLE
             view?.create_spinner_location?.visibility = View.VISIBLE
@@ -191,6 +239,8 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
             }
             isScrolled = true
         }
+         */
+        toggleForm()
     }
 
     companion object {

@@ -38,6 +38,11 @@ class RepairTypesAdapter(private val listener: OnRepairTypeInteraction) : BaseAd
         return null
     }
 
+    fun resetSelectedItem(){
+        selected = -1
+        notifyDataSetChanged()
+    }
+
     interface OnRepairTypeInteraction {
         fun repairTypeSelected(type: RepairType)
     }

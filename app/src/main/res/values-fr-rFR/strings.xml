@@ -72,4 +72,6 @@
     <string name="invalid_price">Valeur du prix invalide</string>
     <string name="maintenance">Entretien</string>
     <string name="oil_change">Vidange</string>
+    <string name="create_repair_success">Données sauvegardées avec succès.</string>
+    <string name="create_repair_error">Erreur lors de la sauvegarde des données, veuillez réessayer.</string>
 </resources>
