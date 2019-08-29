@@ -1,7 +1,6 @@
 package com.cheersapps.carhistory.feature.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
@@ -14,12 +13,7 @@ import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
 import com.cheersapps.carhistory.feature.home.HomePageActivity
 import com.cheersapps.carhistory.feature.register.RegisterActivity
 import com.cheersapps.carhistory.utils.NavigationUtils
-import io.reactivex.Single
-import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.concurrent.TimeUnit
 
 class LoginActivity : BaseActivity() {
 
@@ -105,35 +99,9 @@ class LoginActivity : BaseActivity() {
 
         if (isErrors.first || isErrors.second) return
 
-        // TODO: Check credentials first
-
         loginViewModel.login(username.toString(), password.toString())
 
     }
-
-    fun createFakeSingle(): Disposable {
-        val d: Disposable = Single.just("Hello World")
-                .delay(5, TimeUnit.SECONDS, Schedulers.io())
-                .subscribeWith(object : DisposableSingleObserver<String>() {
-
-                    override fun onStart() {
-                        Log.d("Single", "Started")
-                    }
-
-                    override fun onSuccess(t: String) {
-                        Log.d("Single", "success: $t")
-                    }
-
-                    override fun onError(e: Throwable) {
-
-                        e.printStackTrace()
-                    }
-
-                })
-
-        return d
-    }
-
 
     private fun showLoader() {
         login_loader?.show()
@@ -142,6 +110,7 @@ class LoginActivity : BaseActivity() {
         login_txv_register.isClickable = false
         login_etx_username.isEnabled = false
         login_etx_password.isEnabled = false
+        login_check_stay.isEnabled = false
     }
 
     private fun hideLoader() {
@@ -151,5 +120,6 @@ class LoginActivity : BaseActivity() {
         login_txv_register.isClickable = true
         login_etx_username.isEnabled = true
         login_etx_password.isEnabled = true
+        login_check_stay.isEnabled = true
     }
 }

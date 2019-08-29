@@ -13,9 +13,13 @@ import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
 import com.cheersapps.carhistory.core.activity.BaseActivityExtension.showMessage
 import com.cheersapps.carhistory.core.fragment.BaseFragment
+import com.cheersapps.carhistory.data.entity.AppLanguage
 import com.cheersapps.carhistory.data.entity.User
+import com.cheersapps.carhistory.feature.home.HomePageActivity
 import com.cheersapps.carhistory.feature.home.HomeViewModel
 import com.cheersapps.carhistory.usecase.profile.FieldsValidator
+import com.cheersapps.carhistory.utils.LocaleHelper
+import com.cheersapps.carhistory.utils.NavigationUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableCompletableObserver
@@ -47,12 +51,10 @@ class ProfileFragment : BaseFragment() {
 
         initClicks(view)
         initObservers(view)
-        initLanguage(view)
+        initLanguage()
     }
 
-    private fun initLanguage(view: View) {
-
-    }
+    private fun initLanguage() = toggleLanguageView(homeViewModel.getAppLanguage())
 
     private fun initObservers(view: View) {
         homeViewModel.getLoggedInUser().observe(this, Observer { loggedInUser ->
@@ -165,11 +167,11 @@ class ProfileFragment : BaseFragment() {
         }
 
         view.profile_txv_fr.setOnClickListener {
-            toggleLanguageView(false)
+            toggleLanguageView(AppLanguage.FRENCH, true)
         }
 
         view.profile_txv_en.setOnClickListener {
-            toggleLanguageView(true)
+            toggleLanguageView(AppLanguage.ENGLISH, true)
         }
     }
 
@@ -306,19 +308,32 @@ class ProfileFragment : BaseFragment() {
         }
     }
 
-    private fun toggleLanguageView(isEnglish: Boolean) {
-        if (isEnglish) {
-            view?.profile_txv_fr?.setBackgroundResource(R.drawable.bg_box_language)
-            view?.profile_txv_en?.setBackgroundResource(R.drawable.bg_box_language_selected)
+    private fun toggleLanguageView(language: AppLanguage, resetLanguage: Boolean = false) {
+        when (language) {
+            AppLanguage.ENGLISH -> {
+                view?.profile_txv_fr?.setBackgroundResource(R.drawable.bg_box_language)
+                view?.profile_txv_en?.setBackgroundResource(R.drawable.bg_box_language_selected)
 
-            view?.profile_txv_fr?.setTextColor(ContextCompat.getColor(context!!, R.color.deepBlue))
-            view?.profile_txv_en?.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-        } else {
-            view?.profile_txv_fr?.setBackgroundResource(R.drawable.bg_box_language_selected)
-            view?.profile_txv_en?.setBackgroundResource(R.drawable.bg_box_language)
+                view?.profile_txv_fr?.setTextColor(ContextCompat.getColor(context!!, R.color.deepBlue))
+                view?.profile_txv_en?.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            }
+            AppLanguage.FRENCH -> {
+                view?.profile_txv_fr?.setBackgroundResource(R.drawable.bg_box_language_selected)
+                view?.profile_txv_en?.setBackgroundResource(R.drawable.bg_box_language)
 
-            view?.profile_txv_fr?.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-            view?.profile_txv_en?.setTextColor(ContextCompat.getColor(context!!, R.color.deepBlue))
+                view?.profile_txv_fr?.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                view?.profile_txv_en?.setTextColor(ContextCompat.getColor(context!!, R.color.deepBlue))
+            }
+        }
+
+        if (resetLanguage) {
+            homeViewModel.saveAppLanguage(language)
+            LocaleHelper.setLocale(context!!, language.code)
+
+            val bundle = Bundle()
+            bundle.putString("a","a")
+            NavigationUtils.navigateTo(context = context!!, finish = true, activity = HomePageActivity::class.java, extras = bundle)
+            activity!!.overridePendingTransition(0, 0)
         }
     }
 

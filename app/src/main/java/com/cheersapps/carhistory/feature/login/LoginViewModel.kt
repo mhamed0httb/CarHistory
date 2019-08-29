@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cheersapps.carhistory.common.application.App
 import com.cheersapps.carhistory.common.resource.Resource
+import com.cheersapps.carhistory.data.entity.AppLanguage
 import com.cheersapps.carhistory.data.entity.User
 import com.cheersapps.carhistory.usecase.login.GetStayLoggedIn
 import com.cheersapps.carhistory.usecase.login.LoginUseCase
 import com.cheersapps.carhistory.usecase.login.SetLoggedInUserIdUseCase
 import com.cheersapps.carhistory.usecase.login.SetStayLoggedIn
+import com.cheersapps.carhistory.usecase.profile.GetAppLanguageUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
@@ -33,6 +35,9 @@ class LoginViewModel @Inject constructor() : ViewModel() {
 
     @Inject
     lateinit var setLoggedInUserIdUseCase: SetLoggedInUserIdUseCase
+
+    @Inject
+    lateinit var getAppLanguageUseCase: GetAppLanguageUseCase
 
     private val loginLiveData = MutableLiveData<Resource<User>>()
     fun observeLogin(): LiveData<Resource<User>> = loginLiveData
@@ -64,6 +69,8 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     fun getStayLoggedIn(): Boolean = getStayLoggedIn.execute()
 
     fun setLoggedInUserId(id: String) = setLoggedInUserIdUseCase.execute(id)
+
+    fun getAppLanguage(): AppLanguage = getAppLanguageUseCase.execute()
 
 
 }

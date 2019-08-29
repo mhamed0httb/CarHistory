@@ -79,6 +79,12 @@ class HomePageActivity : BaseActivity(), ProfileFragment.OnProfileInteractionLis
         initToolbar()
         initBottomNavigation()
 
+        val ext = intent.extras?.get("navigation_extra_key")
+        ext?.let {
+            home_nav_view.selectedItemId =  R.id.navigation_profile
+            return@onCreate
+        }
+
         replaceFragmentSafely(
                 R.id.home_container,
                 HomeFragment.newInstance(),

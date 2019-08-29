@@ -26,7 +26,7 @@ class Location() {
 
     override fun toString(): String {
         var string: String = ""
-        this.name?.let { string = it }
+        this.name?.let { string = it.capitalize() }
         return string
     }
 }

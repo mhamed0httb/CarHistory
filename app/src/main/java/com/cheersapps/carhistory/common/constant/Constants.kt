@@ -6,4 +6,6 @@ object Constants {
     const val LOGGED_IN_USER_ID = "logged_in_user_id"
 
     const val ARG_REPAIR = "arg_repair"
+
+    const val APP_LANGUAGE = "app_language"
 }

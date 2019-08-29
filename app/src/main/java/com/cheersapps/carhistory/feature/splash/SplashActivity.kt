@@ -5,11 +5,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProviders
 import com.cheersapps.carhistory.R
 import com.cheersapps.carhistory.core.activity.BaseActivity
-import com.cheersapps.carhistory.feature.home.HomeActivity
 import com.cheersapps.carhistory.feature.home.HomePageActivity
-import com.cheersapps.carhistory.feature.login.LoginActivity
 import com.cheersapps.carhistory.feature.login.LoginViewModel
 import com.cheersapps.carhistory.feature.onBoarding.OnBoardingActivity
+import com.cheersapps.carhistory.utils.LocaleHelper
 import com.cheersapps.carhistory.utils.NavigationUtils
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -33,6 +32,8 @@ class SplashActivity : BaseActivity() {
                     NavigationUtils.navigateTo(context = this, finish = true, activity = OnBoardingActivity::class.java)
             }
         }
+
+        LocaleHelper.setLocale(this, loginViewModel.getAppLanguage().code)
 
         splash_animation.playAnimation()
     }

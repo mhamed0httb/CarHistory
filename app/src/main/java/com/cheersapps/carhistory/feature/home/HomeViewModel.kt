@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cheersapps.carhistory.common.application.App
+import com.cheersapps.carhistory.data.entity.AppLanguage
 import com.cheersapps.carhistory.data.entity.Location
 import com.cheersapps.carhistory.data.entity.Repair
 import com.cheersapps.carhistory.data.entity.User
@@ -14,6 +15,8 @@ import com.cheersapps.carhistory.usecase.login.GetLoggedInUserUseCase
 import com.cheersapps.carhistory.usecase.login.SetStayLoggedIn
 import com.cheersapps.carhistory.usecase.profile.CheckEditPasswordFieldsUseCase
 import com.cheersapps.carhistory.usecase.profile.FieldsValidator
+import com.cheersapps.carhistory.usecase.profile.GetAppLanguageUseCase
+import com.cheersapps.carhistory.usecase.profile.SaveAppLanguageUseCase
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -44,6 +47,12 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     @Inject
     lateinit var locationRepository: LocationRepository
+
+    @Inject
+    lateinit var getAppLanguageUseCase: GetAppLanguageUseCase
+
+    @Inject
+    lateinit var saveAppLanguageUseCase: SaveAppLanguageUseCase
 
     private val deleteLocationLiveData = MutableLiveData<Int>()
     fun observeDeleteLocation(): LiveData<Int> = deleteLocationLiveData
@@ -116,5 +125,9 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     fun getLocations(): LiveData<List<Location>> {
         return locationRepository.findAll()
     }
+
+    fun getAppLanguage(): AppLanguage = getAppLanguageUseCase.execute()
+
+    fun saveAppLanguage(lang: AppLanguage) = saveAppLanguageUseCase.execute(lang.toString())
 
 }
