@@ -47,6 +47,15 @@ class RepairDetailsFragment : BaseFragment() {
 
         repair?.type?.let {
             view.details_txv_type.text = getString(RepairType.valueOf(it).title)
+
+            repair?.takeIf { rep -> rep.oilType != null && rep.oilMaxMileage != null && RepairType.valueOf(it) == RepairType.OIL_CHANGE }?.apply {
+                view.details_txv_oil_type.text = this.oilType
+                val oilMileageBuilder = StringBuilder()
+                oilMileageBuilder.append(this.oilMaxMileage)
+                oilMileageBuilder.append(" Km")
+                view.details_txv_oil_mileage.text = oilMileageBuilder.toString()
+                view.details_card_oil.visibility = View.VISIBLE
+            }
         }
 
         repair?.location?.let {
@@ -60,14 +69,14 @@ class RepairDetailsFragment : BaseFragment() {
         repair?.mileage?.let {
             val mileageBuilder = StringBuilder()
             mileageBuilder.append(it)
-            mileageBuilder.append(" KM")
+            mileageBuilder.append(" Km")
             view.details_txv_mileage.text = mileageBuilder.toString()
         }
 
         repair?.amount?.let {
             val amountBuilder = StringBuilder()
             amountBuilder.append(it)
-            amountBuilder.append(" DT")
+            amountBuilder.append(" Dt")
             view.details_txv_price.text = amountBuilder.toString()
         }
 

@@ -8,7 +8,7 @@ import com.cheersapps.carhistory.core.recyclerView.BaseAdapter
 import com.cheersapps.carhistory.data.entity.RepairType
 import kotlinx.android.synthetic.main.item_repair_type.view.*
 
-class RepairTypesAdapter(private val listener: OnRepairTypeInteraction) : BaseAdapter<RepairType, RepairTypesViewHolder>() {
+class RepairTypesAdapter(private val onRepairTypeSelected: (item: RepairType) -> Unit) : BaseAdapter<RepairType, RepairTypesViewHolder>() {
 
     private var selected: Int = -1
 
@@ -27,7 +27,7 @@ class RepairTypesAdapter(private val listener: OnRepairTypeInteraction) : BaseAd
         holder.itemView.setOnClickListener {
             selected = position
             notifyDataSetChanged()
-            listener.repairTypeSelected(adapterItems[position])
+            onRepairTypeSelected.invoke(adapterItems[position])
         }
     }
 
@@ -38,12 +38,10 @@ class RepairTypesAdapter(private val listener: OnRepairTypeInteraction) : BaseAd
         return null
     }
 
-    fun resetSelectedItem(){
+    fun resetSelectedItem() {
         selected = -1
         notifyDataSetChanged()
     }
 
-    interface OnRepairTypeInteraction {
-        fun repairTypeSelected(type: RepairType)
-    }
+
 }

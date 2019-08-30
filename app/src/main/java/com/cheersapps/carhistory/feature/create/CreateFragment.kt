@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.cheersapps.carhistory.R
@@ -27,13 +26,13 @@ import kotlinx.android.synthetic.main.fragment_create.view.*
 import java.util.*
 import kotlin.concurrent.schedule
 
-class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteraction {
+class CreateFragment : BaseFragment() {
 
 
     private var listener: OnCreateInteractionListener? = null
 
     private val repairTypesAdapter: RepairTypesAdapter by lazy {
-        RepairTypesAdapter(this)
+        RepairTypesAdapter(this::onRepairTypeSelected)
     }
     private var date: Date = DateUtils.currentFullDate()
 
@@ -248,7 +247,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
     /**
      * OnRepairTypeInteraction implementation
      */
-    override fun repairTypeSelected(type: RepairType) {
+    private fun onRepairTypeSelected(type: RepairType) {
         toggleForm(isVisible = true, isOilChange = type == RepairType.OIL_CHANGE)
     }
 
