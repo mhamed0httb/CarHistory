@@ -31,6 +31,8 @@ class Repair: Serializable {
     var type: String? = null
     var location: String? = null
     var amount: Double? = null
+    var oilType: String? = null
+    var oilMaxMileage: Long? = null
 
     private fun generateId(): String {
         val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"

@@ -74,4 +74,6 @@
     <string name="oil_change">Vidange</string>
     <string name="create_repair_success">Données sauvegardées avec succès.</string>
     <string name="create_repair_error">Erreur lors de la sauvegarde des données, veuillez réessayer.</string>
+    <string name="oil_type">Type d\'huile</string>
+    <string name="max_oil_mileage">kilométrage maximum</string>
 </resources>

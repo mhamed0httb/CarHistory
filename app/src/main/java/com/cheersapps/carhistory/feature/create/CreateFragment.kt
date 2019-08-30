@@ -79,6 +79,8 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
             val location = (view.create_spinner_location.selectedItem as Location?)?.name
             val mileage = view.create_etx_mileage.text
             val price = view.create_etx_price.text
+            val oilType = view.create_etx_oil.text
+            val oilMaxMileage = view.create_etx_oil_mileage.text
             if (location.isNullOrEmpty()) {
                 view.create_txv_where.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
                 return@setOnClickListener
@@ -92,6 +94,22 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
             }
             view.create_etx_layout_mileage.isErrorEnabled = false
 
+            repairTypesAdapter.getSelectedItem()?.takeIf { it == RepairType.OIL_CHANGE }?.apply {
+                if(oilType.isNullOrEmpty()){
+                    view.create_etx_layout_oil.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                    view.create_etx_layout_oil.error = getString(R.string.empty_field)
+                    return@setOnClickListener
+                }
+                view.create_etx_layout_oil.isErrorEnabled = false
+
+                if(oilMaxMileage.isNullOrEmpty()){
+                    view.create_etx_layout_oil_mileage.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                    view.create_etx_layout_oil_mileage.error = getString(R.string.empty_field)
+                    return@setOnClickListener
+                }
+                view.create_etx_layout_oil_mileage.isErrorEnabled = false
+            }
+
             if (price.isNullOrEmpty()) {
                 view.create_etx_layout_price.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
                 view.create_etx_layout_price.error = getString(R.string.empty_field)
@@ -100,7 +118,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
             view.create_etx_layout_price.isErrorEnabled = false
 
             val priceDouble = price.toString().toDoubleOrNull()
-            if(priceDouble == null) {
+            if (priceDouble == null) {
                 view.create_etx_layout_price.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
                 view.create_etx_layout_price.error = getString(R.string.invalid_price)
                 return@setOnClickListener
@@ -114,6 +132,10 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
             repair.location = location.toString()
             repair.mileage = mileage.toString().toLong()
             repair.amount = priceDouble
+            repairTypesAdapter.getSelectedItem()?.takeIf { it == RepairType.OIL_CHANGE }?.apply {
+                repair.oilType = oilType.toString()
+                repair.oilMaxMileage = oilMaxMileage.toString().toLong()
+            }
 
             homeViewModel.insertRepair(repair)
                     .subscribeOn(Schedulers.io())
@@ -124,7 +146,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
                                     getString(R.string.success),
                                     getString(R.string.create_repair_success)
                             )
-                            toggleForm()
+                            toggleForm(isVisible = false)
                         }
 
                         override fun onSubscribe(d: Disposable) {
@@ -161,41 +183,47 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
         repairTypesAdapter.changeAll(RepairType.values().toList())
     }
 
-    private fun toggleForm() {
-        if(isScrolled){
-            view?.create_txv_where?.visibility = View.GONE
-            view?.create_spinner_location?.visibility = View.GONE
-            view?.create_etx_layout_mileage?.visibility = View.GONE
-            view?.create_etx_layout_body?.visibility = View.GONE
-            view?.create_btn_submit?.visibility = View.GONE
-            view?.create_etx_layout_price?.visibility = View.GONE
-
-            resetInputs()
-            repairTypesAdapter.resetSelectedItem()
-            isScrolled = false
-        } else {
+    private fun toggleForm(isVisible: Boolean, isOilChange: Boolean = false) {
+        if (isVisible) {
             view?.create_txv_where?.visibility = View.VISIBLE
             view?.create_spinner_location?.visibility = View.VISIBLE
             view?.create_etx_layout_mileage?.visibility = View.VISIBLE
             view?.create_etx_layout_body?.visibility = View.VISIBLE
             view?.create_btn_submit?.visibility = View.VISIBLE
             view?.create_etx_layout_price?.visibility = View.VISIBLE
+            view?.create_linear_layout_oil?.visibility = if (isOilChange) View.VISIBLE else View.GONE
 
-            Timer("scroll", false).schedule(500) {
-                activity?.runOnUiThread {
-                    view?.create_scroll?.height?.let {
-                        view?.create_scroll?.smoothScrollTo(0, it)
+            if (!isScrolled) {
+                Timer("scroll", false).schedule(500) {
+                    activity?.runOnUiThread {
+                        view?.create_scroll?.height?.let {
+                            view?.create_scroll?.smoothScrollTo(0, it)
+                        }
                     }
                 }
+                isScrolled = true
             }
-            isScrolled = true
+        } else {
+            view?.create_txv_where?.visibility = View.GONE
+            view?.create_spinner_location?.visibility = View.GONE
+            view?.create_etx_layout_mileage?.visibility = View.GONE
+            view?.create_etx_layout_body?.visibility = View.GONE
+            view?.create_btn_submit?.visibility = View.GONE
+            view?.create_etx_layout_price?.visibility = View.GONE
+            view?.create_linear_layout_oil?.visibility = View.GONE
+
+            resetInputs()
+            repairTypesAdapter.resetSelectedItem()
+            isScrolled = false
         }
     }
 
-    private fun resetInputs(){
+    private fun resetInputs() {
         view?.create_etx_mileage?.text?.clear()
         view?.create_etx_price?.text?.clear()
         view?.create_etx_body?.text?.clear()
+        view?.create_etx_oil?.text?.clear()
+        view?.create_etx_oil_mileage?.text?.clear()
     }
 
     override fun onAttach(context: Context) {
@@ -221,26 +249,7 @@ class CreateFragment : BaseFragment(), RepairTypesAdapter.OnRepairTypeInteractio
      * OnRepairTypeInteraction implementation
      */
     override fun repairTypeSelected(type: RepairType) {
-        /*
-        if (!isScrolled) {
-            view?.create_txv_where?.visibility = View.VISIBLE
-            view?.create_spinner_location?.visibility = View.VISIBLE
-            view?.create_etx_layout_mileage?.visibility = View.VISIBLE
-            view?.create_etx_layout_body?.visibility = View.VISIBLE
-            view?.create_btn_submit?.visibility = View.VISIBLE
-            view?.create_etx_layout_price?.visibility = View.VISIBLE
-
-            Timer("scroll", false).schedule(500) {
-                activity?.runOnUiThread {
-                    view?.create_scroll?.height?.let {
-                        view?.create_scroll?.smoothScrollTo(0, it)
-                    }
-                }
-            }
-            isScrolled = true
-        }
-         */
-        toggleForm()
+        toggleForm(isVisible = true, isOilChange = type == RepairType.OIL_CHANGE)
     }
 
     companion object {

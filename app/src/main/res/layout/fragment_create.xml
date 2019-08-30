@@ -11,6 +11,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:orientation="vertical">
 
 
@@ -88,11 +89,64 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:digits="0123456789"
-                android:inputType="phone"
                 android:imeOptions="actionNext"
-                android:nextFocusDown="@id/create_etx_price"/>
+                android:inputType="phone"
+                android:nextFocusDown="@id/create_etx_oil" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/create_linear_layout_oil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:weightSum="2"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/create_etx_layout_oil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:hint="@string/oil_type">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/create_etx_oil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:nextFocusDown="@id/create_etx_oil_mileage" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/create_etx_layout_oil_mileage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_weight="1"
+                android:hint="@string/max_oil_mileage">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/create_etx_oil_mileage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:nextFocusDown="@id/create_etx_price" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/create_etx_layout_price"
@@ -109,8 +163,8 @@
                 android:id="@+id/create_etx_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone|numberDecimal"
                 android:imeOptions="actionNext"
+                android:inputType="phone|numberDecimal"
                 android:nextFocusDown="@id/create_etx_body" />
 
         </com.google.android.material.textfield.TextInputLayout>

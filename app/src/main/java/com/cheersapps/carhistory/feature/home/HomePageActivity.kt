@@ -40,6 +40,7 @@ class HomePageActivity : BaseActivity(),
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         supportFragmentManager.popBackStack()
+        toggleNavigation(false)
         when (item.itemId) {
             R.id.navigation_home -> {
                 home_toolbar_txv_title.text = getString(R.string.home)

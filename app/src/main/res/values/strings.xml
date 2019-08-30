@@ -76,6 +76,8 @@
     <string name="oil_change">Oil Change</string>
     <string name="create_repair_success">Data saved successfully.</string>
     <string name="create_repair_error">Error while saving data, please try again.</string>
+    <string name="oil_type">Oil type</string>
+    <string name="max_oil_mileage">max oil mileage</string>
 
 
 </resources>

@@ -13,25 +13,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".feature.onBoarding.OnBoardingActivity"/>
+        <activity
+            android:name=".feature.onBoarding.OnBoardingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.home.HomePageActivity"
             android:label="@string/title_activity_home_page"
-            android:windowSoftInputMode="adjustPan"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".feature.home.HomeActivity"
-            android:label="@string/title_activity_home" />
-        <activity android:name=".feature.create.CreateActivity" />
-        <activity android:name=".feature.splash.SplashActivity">
+            android:label="@string/title_activity_home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feature.create.CreateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feature.splash.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.register.RegisterActivity" />
+        <activity
+            android:name=".feature.register.RegisterActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.login.LoginActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
     </application>
 
