@@ -46,14 +46,9 @@ class ManageLocationsFragment : BaseFragment() {
 
     private fun initView(view: View) {
         view.locations_etx_location.setOnEditorActionListener { v, actionId, event ->
-            event?.let {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || event.action == KeyEvent.ACTION_DOWN
-                        && event.keyCode == KeyEvent.KEYCODE_ENTER) {
-                    submitLocation()
-                    return@setOnEditorActionListener true
-                }
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                submitLocation()
+                return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
         }

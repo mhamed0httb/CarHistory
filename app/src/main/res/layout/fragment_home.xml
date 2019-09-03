@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/raleway_bolditalic"
                 android:gravity="center"
-                android:text="Add new repair"
+                android:text="@string/add_new_repair"
                 android:textColor="@color/deepBlue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
