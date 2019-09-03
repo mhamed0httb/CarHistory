@@ -3,6 +3,7 @@ package com.cheersapps.carhistory.data.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.cheersapps.carhistory.data.entity.Repair
+import com.cheersapps.carhistory.data.entity.RepairType
 import io.reactivex.Single
 
 @Dao
@@ -31,5 +32,8 @@ interface RepairDao {
 
     @Query("SELECT COUNT(id) FROM Repair")
     fun count(): Single<Int>
+
+    @Query("SELECT * FROM Repair WHERE type=:type ORDER BY date DESC LIMIT 1")
+    fun getLastByType(type: String): LiveData<Repair>
 
 }

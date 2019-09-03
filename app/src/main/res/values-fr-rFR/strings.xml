@@ -76,4 +76,8 @@
     <string name="create_repair_error">Erreur lors de la sauvegarde des données, veuillez réessayer.</string>
     <string name="oil_type">Type d\'huile</string>
     <string name="max_oil_mileage">kilométrage maximum</string>
+    <string name="title_repairs">Mes réparations</string>
+    <string name="upcoming_oil_change">Prochain vidange \nà</string>
+    <string name="empty_upcoming">--- --- Km</string>
+    <string name="place_name">nom de lieu</string>
 </resources>

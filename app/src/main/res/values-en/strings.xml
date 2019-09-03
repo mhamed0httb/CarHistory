@@ -78,6 +78,10 @@
     <string name="create_repair_error">Error while saving data, please try again.</string>
     <string name="oil_type">Oil type</string>
     <string name="max_oil_mileage">max oil mileage</string>
+    <string name="title_repairs">My repairs</string>
+    <string name="upcoming_oil_change">Upcoming oil change \nin :</string>
+    <string name="empty_upcoming">--- --- Km</string>
+    <string name="place_name">place name</string>
 
 
 </resources>

@@ -1,9 +1,11 @@
 package com.cheersapps.carhistory.feature.profile
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,23 +38,31 @@ class ManageLocationsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView(view)
         initObservers(view)
         initLocations(view)
         initClicks(view)
     }
 
+    private fun initView(view: View) {
+        view.locations_etx_location.setOnEditorActionListener { v, actionId, event ->
+            event?.let {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || event.action == KeyEvent.ACTION_DOWN
+                        && event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    submitLocation()
+                    return@setOnEditorActionListener true
+                }
+            }
+            return@setOnEditorActionListener false
+        }
+    }
+
 
     private fun initClicks(view: View) {
         view.locations_btn_submit.setOnClickListener {
-            val name = view.locations_etx_location.text
-            if (name.isNullOrEmpty()) {
-                view.locations_etx_layout_location.error = getString(R.string.empty_field)
-                return@setOnClickListener
-            }
-            view.locations_etx_layout_location.isErrorEnabled = false
-
-
-            homeViewModel.insertLocation(Location(name.toString()))
+            submitLocation()
         }
     }
 
@@ -106,6 +116,17 @@ class ManageLocationsFragment : BaseFragment() {
             view?.locations_animation_empty?.visibility = View.GONE
             view?.locations_rcv?.visibility = View.VISIBLE
         }
+    }
+
+    private fun submitLocation() {
+        val name = view?.locations_etx_location?.text
+        if (name.isNullOrEmpty()) {
+            view?.locations_etx_layout_location?.error = getString(R.string.empty_field)
+            return
+        }
+        view?.locations_etx_layout_location?.isErrorEnabled = false
+
+        homeViewModel.insertLocation(Location(name.toString()))
     }
 
 

@@ -22,4 +22,8 @@ class RepairRepository @Inject constructor() {
     fun delete(repair: Repair): Completable {
         return repairLocal.delete(repair)
     }
+
+    fun getUpcomingOilChangeMileage(): LiveData<Repair> {
+        return repairLocal.getLastOilChange()
+    }
 }

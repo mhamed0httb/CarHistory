@@ -41,6 +41,7 @@
     <string name="stay_logged_in">Stay logged in</string>
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="title_home">Home</string>
+    <string name="title_repairs">My repairs</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_create">Create</string>
     <string name="title_notifications">Notifications</string>
@@ -78,6 +79,9 @@
     <string name="create_repair_error">Error while saving data, please try again.</string>
     <string name="oil_type">Oil type</string>
     <string name="max_oil_mileage">max oil mileage</string>
+    <string name="upcoming_oil_change">Upcoming oil change \nin :</string>
+    <string name="empty_upcoming">--- --- Km</string>
+    <string name="place_name">place name</string>
 
 
 </resources>

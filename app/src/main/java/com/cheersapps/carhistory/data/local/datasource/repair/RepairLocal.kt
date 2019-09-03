@@ -2,6 +2,7 @@ package com.cheersapps.carhistory.data.local.datasource.repair
 
 import androidx.lifecycle.LiveData
 import com.cheersapps.carhistory.data.entity.Repair
+import com.cheersapps.carhistory.data.entity.RepairType
 import com.cheersapps.carhistory.data.local.db.AppDatabase
 import io.reactivex.Completable
 import javax.inject.Inject
@@ -26,5 +27,9 @@ class RepairLocal @Inject constructor() {
         return Completable.fromAction {
             appDatabase.repairDao.delete(repair)
         }
+    }
+
+    fun getLastOilChange(): LiveData<Repair> {
+        return appDatabase.repairDao.getLastByType(RepairType.OIL_CHANGE.name)
     }
 }
