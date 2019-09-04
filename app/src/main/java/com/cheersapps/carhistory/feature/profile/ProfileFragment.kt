@@ -17,6 +17,7 @@ import com.cheersapps.carhistory.data.entity.AppLanguage
 import com.cheersapps.carhistory.data.entity.User
 import com.cheersapps.carhistory.feature.home.HomePageActivity
 import com.cheersapps.carhistory.feature.home.HomeViewModel
+import com.cheersapps.carhistory.feature.home.OnHomeInteractionListener
 import com.cheersapps.carhistory.usecase.profile.FieldsValidator
 import com.cheersapps.carhistory.utils.LocaleHelper
 import com.cheersapps.carhistory.utils.NavigationUtils
@@ -33,7 +34,7 @@ import java.util.regex.Pattern
 
 class ProfileFragment : BaseFragment() {
 
-    private var listener: OnProfileInteractionListener? = null
+    private var listener: OnHomeInteractionListener? = null
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this)[HomeViewModel::class.java]
     }
@@ -340,10 +341,10 @@ class ProfileFragment : BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnProfileInteractionListener) {
+        if (context is OnHomeInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException("$context must implement OnProfileInteractionListener")
+            throw RuntimeException("$context must implement OnHomeInteractionListener")
         }
     }
 
@@ -353,10 +354,6 @@ class ProfileFragment : BaseFragment() {
     }
 
 
-    interface OnProfileInteractionListener {
-        fun logout()
-        fun manageLocations()
-    }
 
     companion object {
 

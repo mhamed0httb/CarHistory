@@ -1,7 +1,6 @@
 package com.cheersapps.carhistory.feature.profile
 
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +44,7 @@ class ManageLocationsFragment : BaseFragment() {
     }
 
     private fun initView(view: View) {
-        view.locations_etx_location.setOnEditorActionListener { v, actionId, event ->
+        view.locations_etx_location.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 submitLocation()
                 return@setOnEditorActionListener true

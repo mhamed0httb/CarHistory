@@ -22,9 +22,9 @@ class HomeFragment : BaseFragment() {
 
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,8 +35,8 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initObservers(view: View) {
-        homeViewModel.repairRepository.getUpcomingOilChangeMileage().observe(this, Observer {nullable->
-            nullable?.let {repair->
+        homeViewModel.repairRepository.getUpcomingOilChangeMileage().observe(this, Observer { nullable ->
+            nullable?.let { repair ->
                 repair.mileage?.takeIf { repair.oilMaxMileage != null }?.apply {
                     val builder = StringBuilder()
                     builder.append(this + repair.oilMaxMileage!!)
@@ -81,13 +81,7 @@ class HomeFragment : BaseFragment() {
         listener = null
     }
 
-
-    interface OnHomeInteractionListener {
-        fun navigateTo(fragmentName: String)
-    }
-
     companion object {
-
         @JvmStatic
         fun newInstance() = HomeFragment()
     }

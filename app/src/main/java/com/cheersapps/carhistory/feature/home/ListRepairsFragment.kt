@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_list_repairs.view.*
 class ListRepairsFragment : BaseFragment() {
 
 
-    private var listener: OnRepairsInteractionListener? = null
+    private var listener: OnHomeInteractionListener? = null
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this)[HomeViewModel::class.java]
     }
@@ -32,7 +32,6 @@ class ListRepairsFragment : BaseFragment() {
     }
 
     private var isObserved: Boolean = false
-
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -98,10 +97,10 @@ class ListRepairsFragment : BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnRepairsInteractionListener) {
+        if (context is OnHomeInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException("$context must implement OnRepairsInteractionListener")
+            throw RuntimeException("$context must implement OnHomeInteractionListener")
         }
     }
 
@@ -110,13 +109,7 @@ class ListRepairsFragment : BaseFragment() {
         listener = null
     }
 
-
-    interface OnRepairsInteractionListener {
-        fun detailsRepair(repair: Repair, sharedView: View)
-    }
-
     companion object {
-
         @JvmStatic
         fun newInstance() = ListRepairsFragment()
     }

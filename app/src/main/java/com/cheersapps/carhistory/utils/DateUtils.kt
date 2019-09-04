@@ -7,7 +7,7 @@ object DateUtils {
     private const val TIMEZONE = "UTC+1"
 
     private const val TIME_FORMAT = "H:m"
-    private const val DATE_FORMAT = "d/MM/yyyy"
+    private const val DATE_FORMAT = "d MMMM yyyy"
 
     private val calendar = Calendar.getInstance()
 

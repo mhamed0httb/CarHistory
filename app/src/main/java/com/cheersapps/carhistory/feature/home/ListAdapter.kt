@@ -9,7 +9,7 @@ import com.cheersapps.carhistory.core.recyclerView.BaseViewHolder
 import com.cheersapps.carhistory.data.entity.Repair
 import kotlinx.android.synthetic.main.item_repair_selected.view.*
 
-class ListAdapter(private val listener: ListRepairsFragment.OnRepairsInteractionListener?,
+class ListAdapter(private val listener: OnHomeInteractionListener?,
                   val deleteListener: (item: Repair, position: Int) -> Unit)
     : BaseAdapter<Repair, BaseViewHolder<Repair>>() {
 

@@ -17,6 +17,7 @@ import com.cheersapps.carhistory.data.entity.Location
 import com.cheersapps.carhistory.data.entity.Repair
 import com.cheersapps.carhistory.data.entity.RepairType
 import com.cheersapps.carhistory.feature.home.HomeViewModel
+import com.cheersapps.carhistory.feature.home.OnHomeInteractionListener
 import com.cheersapps.carhistory.utils.DateUtils
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,7 +30,7 @@ import kotlin.concurrent.schedule
 class CreateFragment : BaseFragment() {
 
 
-    private var listener: OnCreateInteractionListener? = null
+    private var listener: OnHomeInteractionListener? = null
 
     private val repairTypesAdapter: RepairTypesAdapter by lazy {
         RepairTypesAdapter(this::onRepairTypeSelected)
@@ -227,21 +228,16 @@ class CreateFragment : BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnCreateInteractionListener) {
+        if (context is OnHomeInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException("$context must implement OnCreateInteractionListener")
+            throw RuntimeException("$context must implement OnHomeInteractionListener")
         }
     }
 
     override fun onDetach() {
         super.onDetach()
         listener = null
-    }
-
-
-    interface OnCreateInteractionListener {
-
     }
 
     /**
@@ -252,7 +248,6 @@ class CreateFragment : BaseFragment() {
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance() = CreateFragment()
     }
