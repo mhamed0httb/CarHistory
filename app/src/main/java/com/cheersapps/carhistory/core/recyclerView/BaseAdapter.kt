@@ -178,6 +178,10 @@ abstract class BaseAdapter<D, V : BaseViewHolder<D>> : androidx.recyclerview.wid
         return null
     }
 
+    fun getItemPosition(item: D): Int {
+        return adapterItems.indexOf(item)
+    }
+
     fun hasData(): Boolean {
         return !adapterItems.isEmpty()
     }

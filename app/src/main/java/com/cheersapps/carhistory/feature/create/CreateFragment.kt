@@ -95,14 +95,14 @@ class CreateFragment : BaseFragment() {
             view.create_etx_layout_mileage.isErrorEnabled = false
 
             repairTypesAdapter.getSelectedItem()?.takeIf { it == RepairType.OIL_CHANGE }?.apply {
-                if(oilType.isNullOrEmpty()){
+                if (oilType.isNullOrEmpty()) {
                     view.create_etx_layout_oil.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
                     view.create_etx_layout_oil.error = getString(R.string.empty_field)
                     return@setOnClickListener
                 }
                 view.create_etx_layout_oil.isErrorEnabled = false
 
-                if(oilMaxMileage.isNullOrEmpty()){
+                if (oilMaxMileage.isNullOrEmpty()) {
                     view.create_etx_layout_oil_mileage.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
                     view.create_etx_layout_oil_mileage.error = getString(R.string.empty_field)
                     return@setOnClickListener
@@ -244,6 +244,9 @@ class CreateFragment : BaseFragment() {
      * OnRepairTypeInteraction implementation
      */
     private fun onRepairTypeSelected(type: RepairType) {
+        val itemPos = repairTypesAdapter.getItemPosition(type)
+        if (itemPos != -1)
+            view?.create_rcv_list_types?.smoothScrollToPosition(itemPos)
         toggleForm(isVisible = true, isOilChange = type == RepairType.OIL_CHANGE)
     }
 
