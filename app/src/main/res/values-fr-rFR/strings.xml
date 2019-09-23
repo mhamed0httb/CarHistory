@@ -81,4 +81,6 @@
     <string name="empty_upcoming">--- --- Km</string>
     <string name="place_name">nom de lieu</string>
     <string name="add_new_repair">Ajouter une réparation</string>
+    <string name="part_ref">Référence de la pièce</string>
+    <string name="upload_image">Importer des images</string>
 </resources>

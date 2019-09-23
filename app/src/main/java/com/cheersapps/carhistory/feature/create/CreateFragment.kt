@@ -1,12 +1,22 @@
 package com.cheersapps.carhistory.feature.create
 
+import android.Manifest
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.cheersapps.carhistory.R
@@ -169,6 +179,41 @@ class CreateFragment : BaseFragment() {
             calendar.set(year, month, dayOfMonth)
             this.date = calendar.time
         }
+
+        view.create_container_upload.setOnClickListener {
+            val isPermitted = checkAndRequestPermissions()
+            if (isPermitted) {
+
+            }
+        }
+    }
+
+    private fun checkAndRequestPermissions(): Boolean {
+        val camerapermission = ContextCompat.checkSelfPermission(activity!!, Manifest.permission.CAMERA)
+        val writepermission = ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val permissionLocation = ContextCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION)
+        val permissionRecordAudio = ContextCompat.checkSelfPermission(activity!!, Manifest.permission.RECORD_AUDIO)
+
+
+        val listPermissionsNeeded = ArrayList<String>()
+
+        if (camerapermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA)
+        }
+        if (writepermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (permissionLocation != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+        if (permissionRecordAudio != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.RECORD_AUDIO)
+        }
+        if (listPermissionsNeeded.isNotEmpty()) {
+            ActivityCompat.requestPermissions(activity!!, listPermissionsNeeded.toTypedArray(), REQUEST_ID_MULTIPLE_PERMISSIONS)
+            return false
+        }
+        return true
     }
 
 
@@ -226,6 +271,28 @@ class CreateFragment : BaseFragment() {
         view?.create_etx_oil_mileage?.text?.clear()
     }
 
+    private fun showDialogOK(message: String, okListener: DialogInterface.OnClickListener) {
+        AlertDialog.Builder(activity!!)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", okListener)
+                .create()
+                .show()
+    }
+
+    private fun explain(msg: String) {
+        val dialog = AlertDialog.Builder(activity!!)
+        dialog.setMessage(msg)
+                .setPositiveButton("Yes") { paramDialogInterface, paramInt ->
+                    //  permissionsclass.requestPermission(type,code);
+                    startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:com.example.parsaniahardik.kotlin_marshmallowpermission")))
+                }
+                .setNegativeButton("Cancel") { paramDialogInterface, paramInt ->
+                    //TODO: Cancel }
+                    dialog.show()
+                }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnHomeInteractionListener) {
@@ -240,6 +307,62 @@ class CreateFragment : BaseFragment() {
         listener = null
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        Log.d(TAG, "Permission callback called-------")
+        when (requestCode) {
+            REQUEST_ID_MULTIPLE_PERMISSIONS -> {
+
+                val perms = HashMap<String, Int>()
+                // Initialize the map with both permissions
+                perms[Manifest.permission.CAMERA] = PackageManager.PERMISSION_GRANTED
+                perms[Manifest.permission.WRITE_EXTERNAL_STORAGE] = PackageManager.PERMISSION_GRANTED
+                perms[Manifest.permission.ACCESS_FINE_LOCATION] = PackageManager.PERMISSION_GRANTED
+                perms[Manifest.permission.RECORD_AUDIO] = PackageManager.PERMISSION_GRANTED
+                // Fill with actual results from user
+                if (grantResults.size > 0) {
+                    for (i in permissions.indices)
+                        perms[permissions[i]] = grantResults[i]
+                    // Check for both permissions
+                    if (perms[Manifest.permission.CAMERA] == PackageManager.PERMISSION_GRANTED
+                            && perms[Manifest.permission.WRITE_EXTERNAL_STORAGE] == PackageManager.PERMISSION_GRANTED
+                            && perms[Manifest.permission.ACCESS_FINE_LOCATION] == PackageManager.PERMISSION_GRANTED
+                            && perms[Manifest.permission.RECORD_AUDIO] == PackageManager.PERMISSION_GRANTED) {
+                        Log.d(TAG, "sms & location services permission granted")
+                        // process the normal flow
+
+                        //else any one or both the permissions are not granted
+                    } else {
+                        Log.d(TAG, "Some permissions are not granted ask again ")
+                        //permission is denied (this is the first time, when "never ask again" is not checked) so ask again explaining the usage of permission
+                        //                        // shouldShowRequestPermissionRationale will return true
+                        //show the dialog or snackbar saying its necessary and try again otherwise proceed with setup.
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(activity!!, Manifest.permission.CAMERA)
+                                || ActivityCompat.shouldShowRequestPermissionRationale(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                || ActivityCompat.shouldShowRequestPermissionRationale(activity!!, Manifest.permission.ACCESS_FINE_LOCATION)
+                                || ActivityCompat.shouldShowRequestPermissionRationale(activity!!, Manifest.permission.RECORD_AUDIO)) {
+                            showDialogOK("Service Permissions are required for this app",
+                                    DialogInterface.OnClickListener { dialog, which ->
+                                        when (which) {
+                                            DialogInterface.BUTTON_POSITIVE -> checkAndRequestPermissions()
+                                            DialogInterface.BUTTON_NEGATIVE -> {
+                                                //TODO: Negative button
+                                                // proceed with logic by disabling the related features or quit the app.
+                                            }
+
+                                        }
+                                    })
+                        } else {
+                            explain("You need to give some mandatory permissions to continue. Do you want to go to app settings?")
+                            //                            //proceed with logic by disabling the related features or quit the app.
+                        }//permission is denied (and never ask again is  checked)
+                        //shouldShowRequestPermissionRationale will return false
+                    }
+                }
+            }
+        }
+    }
+
+
     /**
      * OnRepairTypeInteraction implementation
      */
@@ -253,5 +376,8 @@ class CreateFragment : BaseFragment() {
     companion object {
         @JvmStatic
         fun newInstance() = CreateFragment()
+
+        private const val REQUEST_ID_MULTIPLE_PERMISSIONS = 1
+        private const val TAG = "UPLOAD_IMAGE"
     }
 }

@@ -83,6 +83,8 @@
     <string name="empty_upcoming">--- --- Km</string>
     <string name="place_name">place name</string>
     <string name="add_new_repair">Add new repair</string>
+    <string name="part_ref">Part Reference</string>
+    <string name="upload_image">Upload images</string>
 
 
 </resources>
